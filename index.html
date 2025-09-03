@@ -87,6 +87,40 @@
             text-decoration: none;
             cursor: pointer;
         }
+        /* Slider-specific styles */
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slider img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        .slider-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 0.5rem;
+            cursor: pointer;
+            z-index: 10;
+            border-radius: 9999px;
+        }
+        .slider-button.left {
+            left: 1rem;
+        }
+        .slider-button.right {
+            right: 1rem;
+        }
     </style>
 </head>
 <body class="bg-[#F2EFE6]">
@@ -121,11 +155,11 @@
 
     <!-- Main Content -->
     <main>
-        <!-- Home Section - Updated to minimalist aesthetic -->
+        <!-- Home Section - Updated with image slider -->
         <section id="home" class="relative min-h-[70vh] flex items-center justify-center bg-[#F2EFE6] p-8">
             <div class="container mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between space-y-8 md:space-y-0 md:space-x-12">
-                <div class="md:w-1/2 text-center md:text-left space-y-4">
-                    <p class="text-2xl md:text-3xl text-black font-helvetica leading-tight">
+                <div class="md:w-1/2 text-center md:text-left space-y-4 md:space-y-8">
+                    <p class="text-xl md:text-2xl text-black font-helvetica leading-tight">
                         Handcrafted products promoting mental health, confidence & empowerment.
                     </p>
                     <a href="#products" class="inline-block bg-black text-white px-8 py-3 rounded-full text-lg font-bold shadow-lg hover:bg-gray-800 transition duration-300">
@@ -133,7 +167,15 @@
                     </a>
                 </div>
                 <div class="md:w-1/2 flex justify-center">
-                    <img src="https://placehold.co/500x500/d4af37/FFFFFF?text=Product+Hero" alt="Product Hero Image" class="w-full h-auto object-cover rounded-xl shadow-lg">
+                    <div class="slider-container max-w-lg">
+                        <div class="slider" id="image-slider">
+                            <img src="https://lh3.googleusercontent.com/d/15ZpiMdOMbXKYZnwgIS6w03E8OSNawabl" alt="Product 1" class="w-full h-auto object-cover">
+                            <img src="https://lh3.googleusercontent.com/d/1FKe1x-dLTBRkc7eP8LGoJSL9xyR9AA9j" alt="Product 2" class="w-full h-auto object-cover">
+                            <img src="https://placehold.co/500x500/d4af37/FFFFFF?text=Product+Hero" alt="Product Placeholder" class="w-full h-auto object-cover">
+                        </div>
+                        <button class="slider-button left" onclick="prevSlide()">&#10094;</button>
+                        <button class="slider-button right" onclick="nextSlide()">&#10095;</button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -207,7 +249,7 @@
         </section>
 
         <!-- Our Story Section -->
-        <section id="our-story" class="py-16 bg-[#F2EFE6]">
+        <section id="our-story" class="py-16 bg-white">
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-bold font-helvetica text-black text-center mb-12">Our Story</h2>
                 <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-12">
@@ -330,6 +372,43 @@
         });
 
         observer.observe(impactSection);
+
+        // Image slider functionality
+        let slideIndex = 0;
+        const slides = document.getElementById('image-slider').children;
+
+        function showSlides() {
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 4000); // Change image every 4 seconds
+        }
+
+        function plusSlides(n) {
+            slideIndex += n;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            if (slideIndex < 1) { slideIndex = slides.length }
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex - 1].style.display = "block";
+        }
+
+        // Initialize the slider on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            showSlides();
+        });
+
+        function prevSlide() {
+            plusSlides(-1);
+        }
+
+        function nextSlide() {
+            plusSlides(1);
+        }
 
     </script>
 
