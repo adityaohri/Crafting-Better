@@ -155,18 +155,10 @@
 
     <!-- Main Content -->
     <main>
-        <!-- Home Section - Updated with image slider -->
+        <!-- Home Section - Updated with mobile-first hero section layout -->
         <section id="home" class="relative min-h-[70vh] flex items-center justify-center bg-[#F2EFE6] p-8">
-            <div class="container mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between space-y-8 md:space-y-0 md:space-x-12">
-                <div class="md:w-1/2 text-center md:text-left space-y-4 md:space-y-8">
-                    <p class="text-xl md:text-2xl text-black font-helvetica leading-tight">
-                        Handcrafted products promoting mental health, confidence & empowerment.
-                    </p>
-                    <a href="#products" class="inline-block bg-black text-white px-8 py-3 rounded-full text-lg font-bold shadow-lg hover:bg-gray-800 transition duration-300">
-                        Explore Our Products
-                    </a>
-                </div>
-                <div class="md:w-1/2 flex justify-center">
+            <div class="container mx-auto max-w-7xl flex flex-col-reverse md:flex-row items-center justify-between space-y-8 md:space-y-0 md:space-x-12">
+                <div class="md:w-1/2 flex justify-center order-2 md:order-1">
                     <div class="slider-container max-w-lg">
                         <div class="slider" id="image-slider">
                             <img src="https://lh3.googleusercontent.com/d/15ZpiMdOMbXKYZnwgIS6w03E8OSNawabl" alt="Product 1" class="w-full h-auto object-cover">
@@ -176,6 +168,14 @@
                         <button class="slider-button left" onclick="prevSlide()">&#10094;</button>
                         <button class="slider-button right" onclick="nextSlide()">&#10095;</button>
                     </div>
+                </div>
+                <div class="md:w-1/2 text-center md:text-left space-y-4 md:space-y-8 order-1 md:order-2">
+                    <p class="text-xl md:text-2xl text-black font-helvetica leading-tight">
+                        Handcrafted products promoting mental health, confidence & empowerment.
+                    </p>
+                    <a href="#products" class="inline-block bg-black text-white px-8 py-3 rounded-full text-lg font-bold shadow-lg hover:bg-gray-800 transition duration-300">
+                        Explore Our Products
+                    </a>
                 </div>
             </div>
         </section>
