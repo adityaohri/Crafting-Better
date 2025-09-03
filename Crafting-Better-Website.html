@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crafting Better</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+        .bg-custom-blue {
+            background-color: #2c3e50;
+        }
+        .text-custom-gold {
+            color: #d4af37;
+        }
+        .nav-link:hover {
+            color: #d4af37;
+        }
+        .animate-bounce-slow {
+            animation: bounce-slow 4s infinite;
+        }
+        @keyframes bounce-slow {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        .product-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .razorpay-button {
+            background-color: #d4af37;
+            color: #ffffff;
+            font-weight: bold;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            transition: background-color 0.3s ease;
+        }
+        .razorpay-button:hover {
+            background-color: #c09d31;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-neutral-50">
+
+    <!-- Navbar -->
+    <nav class="bg-neutral-50 p-4 sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-2">
+                <!-- Replace the src attribute below with the public URL of your logo -->
+                <img src="https://placehold.co/100x100/f5f5f5/2c3e50?text=Crafting+Better" alt="Crafting Better Logo" class="w-12 h-12">
+                <span class="text-xl font-bold text-custom-blue">Crafting Better</span>
+            </a>
+            <div class="space-x-4 hidden md:flex">
+                <a href="#home" class="nav-link text-custom-blue font-medium">Home</a>
+                <a href="#products" class="nav-link text-custom-blue font-medium">Products</a>
+                <a href="#our-story" class="nav-link text-custom-blue font-medium">Our Story</a>
+            </div>
+            <!-- Mobile menu button -->
+            <button id="menu-button" class="md:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-custom-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-neutral-50 mt-2 shadow-md rounded-md p-4">
+            <a href="#home" class="block py-2 text-custom-blue font-medium">Home</a>
+            <a href="#products" class="block py-2 text-custom-blue font-medium">Products</a>
+            <a href="#our-story" class="block py-2 text-custom-blue font-medium">Our Story</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="relative h-screen flex items-center justify-center text-center bg-neutral-100 p-8">
+            <div class="container mx-auto max-w-4xl space-y-8">
+                <h1 class="text-6xl md:text-8xl font-bold text-custom-blue">
+                    CRAFTING BETTER
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-700">
+                    Handcrafted products promoting mental health, confidence & empowerment.
+                </p>
+                <a href="#products" class="inline-block bg-custom-blue text-white px-8 py-3 rounded-full text-lg font-bold shadow-lg hover:bg-custom-gold transition duration-300">
+                    Explore Our Products
+                </a>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="products" class="py-16 bg-neutral-50">
+            <div class="container mx-auto text-center px-4">
+                <h2 class="text-4xl font-bold text-custom-blue mb-12">Our Products</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Product 1: Pachranga Coasters -->
+                    <div class="product-card bg-neutral-50 p-6 rounded-xl shadow-md flex flex-col items-center">
+                        <img src="https://placehold.co/300x300/e0e0e0/555555?text=Pachranga+Coasters" alt="Pachranga Coasters" class="w-full h-auto object-cover rounded-xl mb-4">
+                        <h3 class="text-xl font-semibold text-custom-blue">Pachranga Coasters</h3>
+                        <p class="text-gray-600 mt-1">INR 100</p>
+                        <p class="text-gray-500 text-sm mt-2">A beautiful handcrafted coaster to brighten your day.</p>
+                        <button class="mt-4 razorpay-button" onclick="showModal('Pachranga Coasters')">Buy Now</button>
+                    </div>
+
+                    <!-- Product 2: Mayo Utility Pouches -->
+                    <div class="product-card bg-neutral-50 p-6 rounded-xl shadow-md flex flex-col items-center">
+                        <img src="https://placehold.co/300x300/e0e0e0/555555?text=Mayo+Utility+Pouches" alt="Mayo Utility Pouches" class="w-full h-auto object-cover rounded-xl mb-4">
+                        <h3 class="text-xl font-semibold text-custom-blue">Mayo Utility Pouches</h3>
+                        <p class="text-gray-600 mt-1">INR 350</p>
+                        <p class="text-gray-500 text-sm mt-2">A versatile pouch to keep your essentials organized.</p>
+                        <button class="mt-4 razorpay-button" onclick="showModal('Mayo Utility Pouches')">Buy Now</button>
+                    </div>
+
+                    <!-- Product 3: Pachranga Cup Warmer -->
+                    <div class="product-card bg-neutral-50 p-6 rounded-xl shadow-md flex flex-col items-center">
+                        <img src="https://placehold.co/300x300/e0e0e0/555555?text=Pachranga+Cup+Warmer" alt="Pachranga Cup Warmer" class="w-full h-auto object-cover rounded-xl mb-4">
+                        <h3 class="text-xl font-semibold text-custom-blue">Pachranga Cup Warmer</h3>
+                        <p class="text-gray-600 mt-1">INR 300</p>
+                        <p class="text-gray-500 text-sm mt-2">A stylish warmer to keep your beverage hot.</p>
+                        <button class="mt-4 razorpay-button" onclick="showModal('Pachranga Cup Warmer')">Buy Now</button>
+                    </div>
+
+                    <!-- Product 4: Mayo Sipper -->
+                    <div class="product-card bg-neutral-50 p-6 rounded-xl shadow-md flex flex-col items-center">
+                        <img src="https://placehold.co/300x300/e0e0e0/555555?text=Mayo+Sipper" alt="Mayo Sipper" class="w-full h-auto object-cover rounded-xl mb-4">
+                        <h3 class="text-xl font-semibold text-custom-blue">Mayo Sipper</h3>
+                        <p class="text-gray-600 mt-1">INR 350</p>
+                        <p class="text-gray-500 text-sm mt-2">Stay hydrated with this elegant sipper bottle.</p>
+                        <button class="mt-4 razorpay-button" onclick="showModal('Mayo Sipper')">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Story Section -->
+        <section id="our-story" class="py-16 bg-neutral-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-custom-blue text-center mb-12">Our Story</h2>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-12">
+                    <div class="w-full md:w-1/2">
+                        <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                            Crafting Better is a social initiative that uses art as a medium to promote mental health and self-expression. Founded by Kripa and Aditya Ohri, students of Mayo, the initiative combines a passion for psychology and art to empower individuals.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            Through creative workshops and handcrafted products, Crafting Better not only nurtures creativity but also provides students, primarily rural girls, with opportunities to build confidence, independence, and empowerment. We believe that art and psychology can unite to create positive change.
+                        </p>
+                    </div>
+                    <div class="w-full md:w-1/2 flex justify-center">
+                        <img src="https://placehold.co/400x400/d4af37/FFFFFF?text=Our+Story" alt="Our Story" class="rounded-xl shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Floating Peacock Chat Icon -->
+    <a href="https://wa.me/919872012508" target="_blank" class="fixed bottom-8 right-8 z-50 flex flex-col items-center space-y-2">
+        <!-- New, clearer peacock feather SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-16 h-16 text-custom-blue animate-bounce-slow hover:text-custom-gold transition-colors duration-300">
+            <path d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.875 12.375a.75.75 0 00-.75-.75h-2.25a.75.75 0 000 1.5h1.5a.75.75 0 01.75.75v1.5a.75.75 0 01-.75.75h-1.5a.75.75 0 000 1.5h1.5a.75.75 0 00.75-.75v-1.5a.75.75 0 01.75-.75h-1.5V14.25z"/>
+            <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12 4.5a.75.75 0 01.75-.75h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75zm-3 0a.75.75 0 01.75-.75h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75zm6 0a.75.75 0 01.75-.75h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75zm-6 3a.75.75 0 01.75-.75h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75zm3 0a.75.75 0 01.75-.75h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75zm-3 3a.75.75 0 01.75-.75h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75zm3 0a.75.75 0 01.75-.75h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75zm3 0a.75.75 0 01.75-.75h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75zm-3 3a.75.75 0 01.75-.75h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75zm-3 3a.75.75 0 01.75-.75h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75zm3 0a.75.75 0 01.75-.75h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75zm3 0a.75.75 0 01.75-.75h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75z" clip-rule="evenodd" />
+        </svg>
+        <span class="text-xs font-semibold text-custom-blue">Chat on WhatsApp</span>
+    </a>
+    
+    <!-- Modal for Razorpay -->
+    <div id="razorpayModal" class="modal">
+      <div class="modal-content">
+        <span class="close-button" onclick="closeModal()">&times;</span>
+        <h2 class="text-2xl font-bold mb-4">Payment Integration</h2>
+        <p class="text-gray-700">A placeholder for Razorpay payment integration for <span id="product-name" class="font-semibold"></span> will be here.</p>
+        <p class="text-gray-500 text-sm mt-4">For the full integration, you would need to set up a Razorpay account and use their APIs to handle payments.</p>
+      </div>
+    </div>
+
+    <!-- JavaScript for smooth scrolling, mobile menu, and modal -->
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Mobile menu toggle
+        const menuButton = document.getElementById('menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Modal functionality
+        const modal = document.getElementById("razorpayModal");
+        const productNameSpan = document.getElementById("product-name");
+
+        function showModal(productName) {
+            productNameSpan.textContent = productName;
+            modal.style.display = "flex";
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            closeModal();
+          }
+        }
+    </script>
+
+</body>
+</html>
