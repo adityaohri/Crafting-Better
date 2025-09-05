@@ -13,309 +13,221 @@
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
   <style>
-    body {
-      font-family: 'Helvetica', sans-serif;
-      color: #000000;
-      line-height: 1.6;
-      background-color: #F2EFE6;
-    }
+    body { font-family: 'Helvetica', sans-serif; color:#000; line-height:1.6; background-color:#F2EFE6; }
     .font-helvetica { font-family: 'Helvetica', sans-serif; }
-    .nav-link:hover { color: #d4af37; }
-    .animate-bounce-slow { animation: bounce-slow 4s infinite; }
-    @keyframes bounce-slow {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
+    .nav-link:hover { color:#d4af37; }
+    .product-card { transition: transform .3s, box-shadow .3s; }
+    .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,.1); }
+    .razorpay-button { background:#d4af37; color:#fff; font-weight:700; padding:.75rem 2rem; border-radius:9999px; }
+    .razorpay-button:hover { background:#c09d31; }
+    .modal { display:none; position:fixed; z-index:100; inset:0; background:rgba(0,0,0,.4); justify-content:center; align-items:center; }
+    .modal-content { background:#fff; padding:2rem; border-radius:.75rem; box-shadow:0 5px 15px rgba(0,0,0,.3); max-width:520px; width:92%; text-align:center; }
+    .close-button { color:#aaa; float:right; font-size:28px; font-weight:bold; }
+    .close-button:hover { color:#000; cursor:pointer; }
+    .spinner { border:4px solid #eee; border-top:4px solid #d4af37; border-radius:50%; width:26px; height:26px; animation:spin 1s linear infinite; display:inline-block; vertical-align:middle; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    .counter { text-align: center; }
     .animate-bounce-chat { animation: bounce-chat 2.5s infinite ease-in-out; }
     @keyframes bounce-chat {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-8px); }
     }
-    .product-card { transition: transform .3s, box-shadow .3s; }
-    .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,.1); }
-    .razorpay-button {
-      background-color: #d4af37; color: #fff; font-weight: 700;
-      padding: .75rem 2rem; border-radius: 9999px; transition: background-color .3s;
-    }
-    .razorpay-button:hover { background-color: #c09d31; }
-
-    .modal {
-      display: none; position: fixed; z-index: 100; inset: 0;
-      width: 100%; height: 100%; overflow: auto;
-      background-color: rgba(0,0,0,.4); justify-content: center; align-items: center;
-    }
-    .modal-content {
-      background-color: #fff; padding: 2rem; border-radius: .75rem;
-      box-shadow: 0 5px 15px rgba(0,0,0,.3); max-width: 500px; width: 90%; text-align: center;
-    }
-    .close-button { color: #aaa; float: right; font-size: 28px; font-weight: bold; }
-    .close-button:hover, .close-button:focus { color: #000; cursor: pointer; }
-
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    .fade-in { animation: fadeIn .5s ease-in-out; }
-
-    .image-slider { width: 100%; height: 400px; overflow: hidden; position: relative; border-radius: 1rem; }
-    .slide { width: 100%; height: 100%; position: absolute; opacity: 0; transition: opacity 1s ease-in-out; }
-    .slide.active { opacity: 1; }
-    .slider-image { width: 100%; height: 100%; object-fit: cover; object-position: center; }
-
-    @media (max-width: 768px) {
-      .hero-section { flex-direction: column; text-align: center; }
-      .hero-content { order: 2; margin-top: 2rem; }
-      .hero-image { order: 1; margin-bottom: 2rem; }
-    }
-
-    .counter-container { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; }
-    .counter { text-align: center; margin: 1rem 2rem; }
   </style>
 </head>
 
 <body class="bg-[#F2EFE6]">
-  <!-- Navbar -->
-  <nav class="bg-[#F2EFE6] p-4 sticky top-0 z-50 shadow-md">
+  <!-- Header -->
+  <header class="p-4 shadow bg-[#F2EFE6] sticky top-0 z-50">
     <div class="container mx-auto flex justify-between items-center">
-      <a href="#home" class="flex items-center space-x-2">
-        <!-- Replace the src with your public logo URL -->
-        <img src="https://lh3.googleusercontent.com/d/1VLB8aZ9XZWuif1ZnLxaeeL26LbVHaCSK" alt="Crafting Better Logo" class="w-12 h-12" />
-        <span class="text-xl font-helvetica uppercase">Crafting Better</span>
+      <a href="#top" class="flex items-center gap-3">
+        <img src="https://lh3.googleusercontent.com/d/1VLB8aZ9XZWuif1ZnLxaeeL26LbVHaCSK" alt="Crafting Better Logo" class="w-10 h-10 rounded-full object-cover" />
+        <h1 class="text-xl font-helvetica uppercase">Crafting Better</h1>
       </a>
-      <div class="space-x-4 hidden md:flex">
-        <a href="#home" class="nav-link text-black font-medium">Home</a>
-        <a href="#our-impact" class="nav-link text-black font-medium">Our Impact</a>
-        <a href="#our-partners" class="nav-link text-black font-medium">Our Partners</a>
-        <a href="#our-story" class="nav-link text-black font-medium">Our Story</a>
-        <a href="#products" class="nav-link text-black font-medium">Products</a>
-      </div>
-      <!-- Mobile menu button -->
-      <button id="menu-button" class="md:hidden" aria-label="Menu">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
-        </svg>
-      </button>
+      <nav class="hidden md:flex gap-6">
+        <a class="nav-link font-medium" href="#products">Products</a>
+        <a class="nav-link font-medium" href="#our-impact">Our Impact</a>
+        <a class="nav-link font-medium" href="#our-partners">Our Partners</a>
+        <a class="nav-link font-medium" href="#about">About</a>
+        <a class="nav-link font-medium" href="#contact">Contact</a>
+      </nav>
     </div>
-    <!-- Mobile menu -->
-    <div id="mobile-menu" class="hidden md:hidden bg-[#F2EFE6] mt-2 shadow-md rounded-md p-4">
-      <a href="#home" class="block py-2 text-black font-medium">Home</a>
-      <a href="#our-impact" class="block py-2 text-black font-medium">Our Impact</a>
-      <a href="#our-partners" class="block py-2 text-black font-medium">Our Partners</a>
-      <a href="#our-story" class="block py-2 text-black font-medium">Our Story</a>
-      <a href="#products" class="block py-2 text-black font-medium">Products</a>
+  </header>
+
+  <!-- Hero -->
+  <section id="top" class="container mx-auto px-4 py-10">
+    <div class="rounded-2xl p-8 md:p-12 bg-white shadow flex flex-col md:flex-row gap-8 items-center">
+      <div class="md:w-1/2">
+        <h2 class="text-2xl md:text-3xl font-helvetica mb-4">
+          Promoting mental well-being through art while empowering rural communities.
+        </h2>
+        <p class="text-gray-700">
+          We run creative workshops and sell handcrafted products made by rural women — turning art into income and confidence.
+        </p>
+        <a href="#products" class="inline-block mt-6 bg-black text-white px-6 py-2 rounded-full text-lg font-bold hover:bg-gray-800 transition">Explore Products</a>
+      </div>
+      <div class="md:w-1/2">
+        <img class="w-full h-[320px] object-cover rounded-xl shadow" src="https://lh3.googleusercontent.com/d/1kcRA9117tw-vhp_ekMmiNXuh3z-ullbR" alt="Crafting Better" />
+      </div>
     </div>
-  </nav>
-
-  <!-- Main Content -->
-  <main>
-    <!-- Home Section -->
-    <section id="home" class="relative min-h-[80vh] flex items-center justify-center p-8 bg-[#F2EFE6] md:flex-row flex-col">
-      <div class="container mx-auto flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-12">
-        <!-- Text -->
-        <div class="md:w-1/2 text-left hero-content">
-          <h1 class="text-2xl md:text-3xl font-helvetica mb-4">
-            Crafting Better promotes mental well-being through art while empowering rural communities by selling their handicrafts
-          </h1>
-          <a href="#products" class="inline-block bg-black text-white px-6 py-2 rounded-full text-lg font-bold shadow-lg hover:bg-gray-800 transition duration-300 mt-4">
-            Explore Our Products
-          </a>
-        </div>
-        <!-- Image slider -->
-        <div class="md:w-1/2 image-slider hero-image">
-          <div class="slide active">
-            <img src="https://lh3.googleusercontent.com/d/1kcRA9117tw-vhp_ekMmiNXuh3z-ullbR" alt="Product Image 1" class="slider-image" />
+  </section>
+  
+  <!-- Our Impact -->
+  <section id="our-impact" class="container mx-auto px-4 py-12">
+      <div class="bg-white rounded-2xl p-8 shadow text-center">
+          <h3 class="text-3xl font-helvetica mb-8">Our Impact</h3>
+          <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16">
+              <div class="counter">
+                  <div class="text-5xl font-semibold font-helvetica text-black" data-target="21">0</div>
+                  <p class="text-black font-helvetica mt-2">Women Empowered</p>
+              </div>
+              <div class="counter">
+                  <div class="text-5xl font-semibold font-helvetica text-black" data-target="52">0</div>
+                  <p class="text-black font-helvetica mt-2">Products Sold</p>
+              </div>
+              <div class="counter">
+                  <div class="text-5xl font-semibold font-helvetica text-black" data-target="38000" id="value-generated-counter">0</div>
+                  <p class="text-black font-helvetica mt-2">Value Generated</p>
+              </div>
           </div>
-          <div class="slide">
-            <img src="https://lh3.googleusercontent.com/d/1r33t1lVDQf9m1ueoBfNsjNgr_mcaQ23A" alt="Product Image 2" class="slider-image" />
-          </div>
-          <div class="slide">
-            <img src="https://lh3.googleusercontent.com/d/12Qe2N4AwKtBg09Pkk9ZkKVbLwVSFfKpM" alt="Product Image 3" class="slider-image" />
-          </div>
-          <div class="slide">
-            <img src="https://lh3.googleusercontent.com/d/1Ck9ZRRdARrLUiuVBdcUmISv8yhNc9Brm" alt="Product Image 4" class="slider-image" />
-          </div>
-        </div>
+          <p class="text-sm text-gray-600 mt-6">We have started a month back and still have a long way to go...</p>
       </div>
-    </section>
+  </section>
 
-    <!-- Our Impact -->
-    <section id="our-impact" class="py-16 bg-white">
-      <div class="container mx-auto text-center px-4">
-        <h2 class="text-4xl font-helvetica mb-12">Our Impact</h2>
-        <div class="flex flex-col md:flex-row justify-center space-y-8 md:space-y-0 md:space-x-12 counter-container">
-          <div class="counter">
-            <div class="text-5xl md:text-6xl font-semibold font-helvetica text-black" data-target="21" id="women-empowered">0</div>
-            <p class="text-black font-helvetica mt-2">Women Empowered</p>
+  <!-- Our Partners -->
+  <section id="our-partners" class="container mx-auto px-4 py-12">
+      <div class="bg-white rounded-2xl p-8 shadow text-center">
+          <h3 class="text-3xl font-helvetica mb-8">Our Partners</h3>
+          <div class="flex flex-wrap items-center justify-center gap-8 md:gap-16">
+              <img src="https://lh3.googleusercontent.com/d/1ez_BGjm4w8DkxskUFncWMuniTYGciG5f" alt="Partner Logo 1" class="h-24 md:h-32 object-contain" />
+              <img src="https://lh3.googleusercontent.com/d/1nzqC8G7tCdZwwBAZ2318eRnM79a7kjhD" alt="Partner Logo 2" class="h-24 md:h-32 object-contain" />
           </div>
-          <div class="counter">
-            <div class="text-5xl md:text-6xl font-semibold font-helvetica text-black" data-target="52" id="products-sold">0</div>
-            <p class="text-black font-helvetica mt-2">Products Sold</p>
-          </div>
-          <div class="counter">
-            <div class="text-5xl md:text-6xl font-semibold font-helvetica text-black" data-target="38000" id="value-generated">0</div>
-            <p class="text-black font-helvetica mt-2">Value Generated</p>
-          </div>
-        </div>
-        <p class="text-sm text-black mt-4">We have started a month back and still have a long way to go...</p>
       </div>
-    </section>
+  </section>
 
-    <!-- Our Partners -->
-    <section id="our-partners" class="py-16 bg-[#F2EFE6]">
-      <div class="container mx-auto text-center px-4">
-        <h2 class="text-4xl font-helvetica mb-12">Our Partners</h2>
-        <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-12">
-          <img src="https://lh3.googleusercontent.com/d/1ez_BGjm4w8DkxskUFncWMuniTYGciG5f" alt="Partner Logo 1" class="w-32 h-32 md:w-48 md:h-48 object-contain" />
-          <img src="https://lh3.googleusercontent.com/d/1nzqC8G7tCdZwwBAZ2318eRnM79a7kjhD" alt="Partner Logo 2" class="w-32 h-32 md:w-48 md:h-48 object-contain" />
+  <!-- Products -->
+  <main id="products" class="container mx-auto px-4 py-12">
+    <h3 class="text-3xl font-helvetica mb-8 text-center">Our Products</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Product 1 -->
+        <div class="product-card bg-white p-6 rounded-xl shadow-md flex flex-col items-center text-center">
+          <img src="https://placehold.co/300x300/e0e0e0/555555?text=Panchranga+Crochet+Coaster" alt="Panchranga Crochet Coaster" class="w-full h-auto object-cover rounded-xl mb-4 aspect-square" />
+          <h4 class="text-xl font-semibold text-black">Panchranga Crochet Coaster</h4>
+          <p class="text-gray-600 mt-1">₹100</p>
+          <p class="text-gray-500 text-sm mt-2">A vibrant, handcrafted coaster to protect your surfaces in style.</p>
+          <button
+            class="mt-4 razorpay-button"
+            onclick="showCheckout('Panchranga Crochet Coaster', 100, 'https://placehold.co/300x300/e0e0e0/555555?text=Panchranga+Crochet+Coaster', 'A vibrant, handcrafted coaster to protect your surfaces in style.')"
+          >Buy Now</button>
         </div>
-      </div>
-    </section>
 
-    <!-- Our Story -->
-    <section id="our-story" class="py-16 bg-white">
-      <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-helvetica text-center mb-12">Our Story</h2>
-        <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-12">
-          <div class="w-full md:w-1/2">
-            <p class="text-lg text-black leading-relaxed mb-4">
-              Crafting Better is a social initiative that began as a set of self-reflection workshops to address mental health. Founded by Kripa and Aditya Ohri, students of Mayo, it has since evolved to use art as a medium for emotional well-being and self-expression while empowering rural communities through the sale of their handicrafts.
-            </p>
-            <p class="text-lg text-black leading-relaxed">
-              Through creative workshops and handcrafted products, Crafting Better not only nurtures creativity but also provides students, primarily rural girls, with opportunities to build confidence, independence, and empowerment. We believe that art and psychology can unite to create positive change.
-            </p>
-          </div>
-          <div class="w-full md:w-1/2 flex justify-center">
-            <img src="https://lh3.googleusercontent.com/d/1tQ2a-2aV1n_8Y3jR9mN6L8k_9O7pZ_uT" alt="Artisans from rural communities crafting products" class="rounded-xl shadow-lg w-full h-auto object-cover aspect-square" />
-          </div>
+        <!-- Product 2 -->
+        <div class="product-card bg-white p-6 rounded-xl shadow-md flex flex-col items-center text-center">
+          <img src="https://placehold.co/300x300/e0e0e0/555555?text=Panchranga+Crochet+Cup+Warmer" alt="Panchranga Crochet Cup Warmer" class="w-full h-auto object-cover rounded-xl mb-4 aspect-square" />
+          <h4 class="text-xl font-semibold text-black">Panchranga Crochet Cup Warmer</h4>
+          <p class="text-gray-600 mt-1">₹300</p>
+          <p class="text-gray-500 text-sm mt-2">Keep your beverages warm with this colorful, hand-knitted cup warmer.</p>
+          <button
+            class="mt-4 razorpay-button"
+            onclick="showCheckout('Panchranga Crochet Cup Warmer', 300, 'https://placehold.co/300x300/e0e0e0/555555?text=Panchranga+Crochet+Cup+Warmer', 'Keep your beverages warm with this colorful, hand-knitted cup warmer.')"
+          >Buy Now</button>
         </div>
-      </div>
-    </section>
 
-    <!-- Products -->
-    <section id="products" class="py-16 bg-[#F2EFE6]">
-      <div class="container mx-auto text-center px-4">
-        <h2 class="text-4xl font-helvetica mb-12">Our Products</h2>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <!-- Product 1 -->
-          <div class="product-card bg-white p-6 rounded-xl shadow-md flex flex-col items-center">
-            <img src="https://lh3.googleusercontent.com/d/12Qe2N4AwKtBg09Pkk9ZkKVbLwVSFfKpM" alt="Panchranga Crochet Coaster" class="w-full h-auto object-cover rounded-xl mb-4 aspect-square" />
-            <h3 class="text-xl font-semibold text-black">Panchranga Crochet Coaster</h3>
-            <p class="text-gray-600 mt-1">₹100</p>
-            <p class="text-gray-500 text-sm mt-2">A vibrant, handcrafted coaster to protect your surfaces in style.</p>
-            <button
-              class="mt-4 razorpay-button"
-              onclick="showCheckout('Panchranga Crochet Coaster', 100, 'https://lh3.googleusercontent.com/d/12Qe2N4AwKtBg09Pkk9ZkKVbLwVSFfKpM', 'A vibrant, handcrafted coaster to protect your surfaces in style.')"
-            >Buy Now</button>
-          </div>
-
-          <!-- Product 2 -->
-          <div class="product-card bg-white p-6 rounded-xl shadow-md flex flex-col items-center">
-            <img src="https://placehold.co/300x300/e0e0e0/555555?text=Panchranga+Crochet+Cup+Warmer" alt="Panchranga Crochet Cup Warmer" class="w-full h-auto object-cover rounded-xl mb-4 aspect-square" />
-            <h3 class="text-xl font-semibold text-black">Panchranga Crochet Cup Warmer</h3>
-            <p class="text-gray-600 mt-1">₹300</p>
-            <p class="text-gray-500 text-sm mt-2">Keep your beverages warm with this colorful, hand-knitted cup warmer.</p>
-            <button
-              class="mt-4 razorpay-button"
-              onclick="showCheckout('Panchranga Crochet Cup Warmer', 300, 'https://placehold.co/300x300/e0e0e0/555555?text=Panchranga+Crochet+Cup+Warmer', 'Keep your beverages warm with this colorful, hand-knitted cup warmer.')"
-            >Buy Now</button>
-          </div>
-
-          <!-- Product 3 -->
-          <div class="product-card bg-white p-6 rounded-xl shadow-md flex flex-col items-center">
-            <img src="https://lh3.googleusercontent.com/d/1Ck9ZRRdARrLUiuVBdcUmISv8yhNc9Brm" alt="Mayo Embroidered Pouches" class="w-full h-auto object-cover rounded-xl mb-4 aspect-square" />
-            <h3 class="text-xl font-semibold text-black">Mayo Embroidered Pouches</h3>
-            <p class="text-gray-600 mt-1">₹300</p>
-            <p class="text-gray-500 text-sm mt-2">A stylish and practical embroidered pouch for your essentials.</p>
-            <button
-              class="mt-4 razorpay-button"
-              onclick="showCheckout('Mayo Embroidered Pouches', 300, 'https://lh3.googleusercontent.com/d/1Ck9ZRRdARrLUiuVBdcUmISv8yhNc9Brm', 'A stylish and practical embroidered pouch for your essentials.')"
-            >Buy Now</button>
-          </div>
-
-          <!-- Product 4 -->
-          <div class="product-card bg-white p-6 rounded-xl shadow-md flex flex-col items-center">
-            <img src="https://placehold.co/300x300/e0e0e0/555555?text=Mayo+Embroidered+Sipper" alt="Mayo Embroidered Sipper" class="w-full h-auto object-cover rounded-xl mb-4 aspect-square" />
-            <h3 class="text-xl font-semibold text-black">Mayo Embroidered Sipper</h3>
-            <p class="text-gray-600 mt-1">₹350</p>
-            <p class="text-gray-500 text-sm mt-2">Stay hydrated in style with this elegant embroidered sipper.</p>
-            <button
-              class="mt-4 razorpay-button"
-              onclick="showCheckout('Mayo Embroidered Sipper', 350, 'https://placehold.co/300x300/e0e0e0/555555?text=Mayo+Embroidered+Sipper', 'Stay hydrated in style with this elegant embroidered sipper.')"
-            >Buy Now</button>
-          </div>
-
-          <!-- Product 5 -->
-          <div class="product-card bg-white p-6 rounded-xl shadow-md flex flex-col items-center">
-            <img src="https://placehold.co/300x300/e0e0e0/555555?text=Peacock+Embroidered+Bookmark" alt="Peacock Embroidered Bookmark" class="w-full h-auto object-cover rounded-xl mb-4 aspect-square" />
-            <h3 class="text-xl font-semibold text-black">Peacock Embroidered Bookmark</h3>
-            <p class="text-gray-600 mt-1">₹500</p>
-            <p class="text-gray-500 text-sm mt-2">A beautiful peacock-themed bookmark for the avid reader.</p>
-            <button
-              class="mt-4 razorpay-button"
-              onclick="showCheckout('Peacock Embroidered Bookmark', 500, 'https://placehold.co/300x300/e0e0e0/555555?text=Peacock+Embroidered+Bookmark', 'A beautiful peacock-themed bookmark for the avid reader.')"
-            >Buy Now</button>
-          </div>
-
-          <!-- Product 6 -->
-          <div class="product-card bg-white p-6 rounded-xl shadow-md flex flex-col items-center">
-            <img src="https://placehold.co/300x300/e0e0e0/555555?text=Peacock+Feather+Embroidered+Keychain" alt="Peacock Feather Embroidered Keychain" class="w-full h-auto object-cover rounded-xl mb-4 aspect-square" />
-            <h3 class="text-xl font-semibold text-black">Peacock Feather Embroidered Keychain</h3>
-            <p class="text-gray-600 mt-1">₹650</p>
-            <p class="text-gray-500 text-sm mt-2">A delicate and beautiful keychain with an embroidered peacock feather.</p>
-            <button
-              class="mt-4 razorpay-button"
-              onclick="showCheckout('Peacock Feather Embroidered Keychain', 650, 'https://placehold.co/300x300/e0e0e0/555555?text=Peacock+Feather+Embroidered+Keychain', 'A delicate and beautiful keychain with an embroidered peacock feather.')"
-            >Buy Now</button>
-          </div>
-
-          <!-- Product 7 -->
-          <div class="product-card bg-white p-6 rounded-xl shadow-md flex flex-col items-center">
-            <img src="https://placehold.co/300x300/e0e0e0/555555?text=Proud+Mayoite+Embroidered+Keychain" alt="Proud Mayoite Embroidered Keychain" class="w-full h-auto object-cover rounded-xl mb-4 aspect-square" />
-            <h3 class="text-xl font-semibold text-black">Proud Mayoite Embroidered Keychain</h3>
-            <p class="text-gray-600 mt-1">₹650</p>
-            <p class="text-gray-500 text-sm mt-2">A special keychain for every proud Mayoite.</p>
-            <button
-              class="mt-4 razorpay-button"
-              onclick="showCheckout('Proud Mayoite Embroidered Keychain', 650, 'https://placehold.co/300x300/e0e0e0/555555?text=Proud+Mayoite+Embroidered+Keychain', 'A special keychain for every proud Mayoite.')"
-            >Buy Now</button>
-          </div>
-
-          <!-- Product 8 -->
-          <div class="product-card bg-white p-6 rounded-xl shadow-md flex flex-col items-center">
-            <img src="https://lh3.googleusercontent.com/d/1kcRA9117tw-vhp_ekMmiNXuh3z-ullbR" alt="Panchranga Embroidered Keychain" class="w-full h-auto object-cover rounded-xl mb-4 aspect-square" />
-            <h3 class="text-xl font-semibold text-black">Panchranga Embroidered Keychain</h3>
-            <p class="text-gray-600 mt-1">₹650</p>
-            <p class="text-gray-500 text-sm mt-2">A colorful and elegant embroidered keychain.</p>
-            <button
-              class="mt-4 razorpay-button"
-              onclick="showCheckout('Panchranga Embroidered Keychain', 650, 'https://lh3.googleusercontent.com/d/1kcRA9117tw-vhp_ekMmiNXuh3z-ullbR', 'A colorful and elegant embroidered keychain.')"
-            >Buy Now</button>
-          </div>
-
-          <!-- Product 9 -->
-          <div class="product-card bg-white p-6 rounded-xl shadow-md flex flex-col items-center">
-            <img src="https://lh3.googleusercontent.com/d/1r33t1lVDQf9m1ueoBfNsjNgr_mcaQ23A" alt="Clocktower Embroidered Notebook" class="w-full h-auto object-cover rounded-xl mb-4 aspect-square" />
-            <h3 class="text-xl font-semibold text-black">Clocktower Embroidered Notebook</h3>
-            <p class="text-gray-600 mt-1">₹1000</p>
-            <p class="text-gray-500 text-sm mt-2">A beautifully embroidered notebook featuring the Mayo Clocktower.</p>
-            <button
-              class="mt-4 razorpay-button"
-              onclick="showCheckout('Clocktower Embroidered Notebook', 1000, 'https://lh3.googleusercontent.com/d/1r33t1lVDQf9m1ueoBfNsjNgr_mcaQ23A', 'A beautifully embroidered notebook featuring the Mayo Clocktower.')"
-            >Buy Now</button>
-          </div>
-
-          <!-- Product 10 -->
-          <div class="product-card bg-white p-6 rounded-xl shadow-md flex flex-col items-center">
-            <img src="https://placehold.co/300x300/e0e0e0/555555?text=Panchranga+Crochet+Scarf" alt="Panchranga Crochet Scarf" class="w-full h-auto object-cover rounded-xl mb-4 aspect-square" />
-            <h3 class="text-xl font-semibold text-black">Panchranga Crochet Scarf</h3>
-            <p class="text-gray-600 mt-1">₹2000</p>
-            <p class="text-gray-500 text-sm mt-2">A cozy and vibrant crochet scarf in the Panchranga colors.</p>
-            <button
-              class="mt-4 razorpay-button"
-              onclick="showCheckout('Panchranga Crochet Scarf', 2000, 'https://placehold.co/300x300/e0e0e0/555555?text=Panchranga+Crochet+Scarf', 'A cozy and vibrant crochet scarf in the Panchranga colors.')"
-            >Buy Now</button>
-          </div>
+        <!-- Product 3 -->
+        <div class="product-card bg-white p-6 rounded-xl shadow-md flex flex-col items-center text-center">
+          <img src="https://placehold.co/300x300/e0e0e0/555555?text=Mayo+Embroidered+Pouches" alt="Mayo Embroidered Pouches" class="w-full h-auto object-cover rounded-xl mb-4 aspect-square" />
+          <h4 class="text-xl font-semibold text-black">Mayo Embroidered Pouches</h4>
+          <p class="text-gray-600 mt-1">₹300</p>
+          <p class="text-gray-500 text-sm mt-2">A stylish and practical embroidered pouch for your essentials.</p>
+          <button
+            class="mt-4 razorpay-button"
+            onclick="showCheckout('Mayo Embroidered Pouches', 300, 'https://placehold.co/300x300/e0e0e0/555555?text=Mayo+Embroidered+Pouches', 'A stylish and practical embroidered pouch for your essentials.')"
+          >Buy Now</button>
         </div>
-      </div>
-    </section>
+
+        <!-- Product 4 -->
+        <div class="product-card bg-white p-6 rounded-xl shadow-md flex flex-col items-center text-center">
+          <img src="https://placehold.co/300x300/e0e0e0/555555?text=Mayo+Embroidered+Sipper" alt="Mayo Embroidered Sipper" class="w-full h-auto object-cover rounded-xl mb-4 aspect-square" />
+          <h4 class="text-xl font-semibold text-black">Mayo Embroidered Sipper</h4>
+          <p class="text-gray-600 mt-1">₹350</p>
+          <p class="text-gray-500 text-sm mt-2">Stay hydrated in style with this elegant embroidered sipper.</p>
+          <button
+            class="mt-4 razorpay-button"
+            onclick="showCheckout('Mayo Embroidered Sipper', 350, 'https://placehold.co/300x300/e0e0e0/555555?text=Mayo+Embroidered+Sipper', 'Stay hydrated in style with this elegant embroidered sipper.')"
+          >Buy Now</button>
+        </div>
+
+        <!-- Product 5 -->
+        <div class="product-card bg-white p-6 rounded-xl shadow-md flex flex-col items-center text-center">
+          <img src="https://placehold.co/300x300/e0e0e0/555555?text=Peacock+Embroidered+Bookmark" alt="Peacock Embroidered Bookmark" class="w-full h-auto object-cover rounded-xl mb-4 aspect-square" />
+          <h4 class="text-xl font-semibold text-black">Peacock Embroidered Bookmark</h4>
+          <p class="text-gray-600 mt-1">₹500</p>
+          <p class="text-gray-500 text-sm mt-2">A beautiful peacock-themed bookmark for the avid reader.</p>
+          <button
+            class="mt-4 razorpay-button"
+            onclick="showCheckout('Peacock Embroidered Bookmark', 500, 'https://placehold.co/300x300/e0e0e0/555555?text=Peacock+Embroidered+Bookmark', 'A beautiful peacock-themed bookmark for the avid reader.')"
+          >Buy Now</button>
+        </div>
+
+        <!-- Product 6 -->
+        <div class="product-card bg-white p-6 rounded-xl shadow-md flex flex-col items-center text-center">
+          <img src="https://placehold.co/300x300/e0e0e0/555555?text=Peacock+Feather+Keychain" alt="Peacock Feather Embroidered Keychain" class="w-full h-auto object-cover rounded-xl mb-4 aspect-square" />
+          <h4 class="text-xl font-semibold text-black">Peacock Feather Embroidered Keychain</h4>
+          <p class="text-gray-600 mt-1">₹650</p>
+          <p class="text-gray-500 text-sm mt-2">A delicate and beautiful keychain with an embroidered peacock feather.</p>
+          <button
+            class="mt-4 razorpay-button"
+            onclick="showCheckout('Peacock Feather Embroidered Keychain', 650, 'https://placehold.co/300x300/e0e0e0/555555?text=Peacock+Feather+Keychain', 'A delicate and beautiful keychain with an embroidered peacock feather.')"
+          >Buy Now</button>
+        </div>
+
+        <!-- Product 7 -->
+        <div class="product-card bg-white p-6 rounded-xl shadow-md flex flex-col items-center text-center">
+          <img src="https://placehold.co/300x300/e0e0e0/555555?text=Proud+Mayoite+Keychain" alt="Proud Mayoite Embroidered Keychain" class="w-full h-auto object-cover rounded-xl mb-4 aspect-square" />
+          <h4 class="text-xl font-semibold text-black">Proud Mayoite Embroidered Keychain</h4>
+          <p class="text-gray-600 mt-1">₹650</p>
+          <p class="text-gray-500 text-sm mt-2">A special keychain for every proud Mayoite.</p>
+          <button
+            class="mt-4 razorpay-button"
+            onclick="showCheckout('Proud Mayoite Embroidered Keychain', 650, 'https://placehold.co/300x300/e0e0e0/555555?text=Proud+Mayoite+Keychain', 'A special keychain for every proud Mayoite.')"
+          >Buy Now</button>
+        </div>
+
+        <!-- Product 8 -->
+        <div class="product-card bg-white p-6 rounded-xl shadow-md flex flex-col items-center text-center">
+          <img src="https://placehold.co/300x300/e0e0e0/555555?text=Pachranga+Keychain" alt="Pachranga Embroidered Keychain" class="w-full h-auto object-cover rounded-xl mb-4 aspect-square" />
+          <h4 class="text-xl font-semibold text-black">Pachranga Embroidered Keychain</h4>
+          <p class="text-gray-600 mt-1">₹650</p>
+          <p class="text-gray-500 text-sm mt-2">A colorful and elegant embroidered keychain.</p>
+          <button
+            class="mt-4 razorpay-button"
+            onclick="showCheckout('Pachranga Embroidered Keychain', 650, 'https://placehold.co/300x300/e0e0e0/555555?text=Pachranga+Keychain', 'A colorful and elegant embroidered keychain.')"
+          >Buy Now</button>
+        </div>
+
+        <!-- Product 9 -->
+        <div class="product-card bg-white p-6 rounded-xl shadow-md flex flex-col items-center text-center">
+          <img src="https://placehold.co/300x300/e0e0e0/555555?text=Clocktower+Notebook" alt="Clocktower Embroidered Notebook" class="w-full h-auto object-cover rounded-xl mb-4 aspect-square" />
+          <h4 class="text-xl font-semibold text-black">Clocktower Embroidered Notebook</h4>
+          <p class="text-gray-600 mt-1">₹1000</p>
+          <p class="text-gray-500 text-sm mt-2">A beautifully embroidered notebook featuring the Mayo Clocktower.</p>
+          <button
+            class="mt-4 razorpay-button"
+            onclick="showCheckout('Clocktower Embroidered Notebook', 1000, 'https://placehold.co/300x300/e0e0e0/555555?text=Clocktower+Notebook', 'A beautifully embroidered notebook featuring the Mayo Clocktower.')"
+          >Buy Now</button>
+        </div>
+
+        <!-- Product 10 -->
+        <div class="product-card bg-white p-6 rounded-xl shadow-md flex flex-col items-center text-center">
+          <img src="https://placehold.co/300x300/e0e0e0/555555?text=Pachranga+Crochet+Scarf" alt="Pachranga Crochet Scarf" class="w-full h-auto object-cover rounded-xl mb-4 aspect-square" />
+          <h4 class="text-xl font-semibold text-black">Pachranga Crochet Scarf</h4>
+          <p class="text-gray-600 mt-1">₹2000</p>
+          <p class="text-gray-500 text-sm mt-2">A cozy and vibrant crochet scarf in the Panchranga colors.</p>
+          <button
+            class="mt-4 razorpay-button"
+            onclick="showCheckout('Pachranga Crochet Scarf', 2000, 'https://placehold.co/300x300/e0e0e0/555555?text=Pachranga+Crochet+Scarf', 'A cozy and vibrant crochet scarf in the Panchranga colors.')"
+          >Buy Now</button>
+        </div>
+    </div>
   </main>
 
   <!-- WhatsApp CTA -->
@@ -337,10 +249,11 @@
         <h3 id="checkout-product-name" class="text-2xl font-semibold text-black mb-2"></h3>
         <p id="checkout-product-price" class="text-xl text-gray-700 mb-4"></p>
         <p id="checkout-product-description" class="text-gray-600 mb-4"></p>
-        <button onclick="hideCheckout()" class="bg-gray-400 text-white px-6 py-2 rounded-full text-lg font-bold hover:bg-gray-500 transition duration-300">
+        <button onclick="hideCheckout()" class="bg-gray-400 text-white px-6 py-2 rounded-full text-lg font-bold hover:bg-gray-500 transition">
           Back to Products
         </button>
       </div>
+
       <div class="md:w-1/2 p-4 w-full">
         <h3 class="text-2xl font-semibold text-black mb-4 text-center md:text-left">Customer Details</h3>
         <form id="checkout-form" class="space-y-4">
@@ -360,74 +273,116 @@
             <label for="address" class="block text-gray-700">Shipping Address</label>
             <textarea id="address" class="w-full p-2 border border-gray-300 rounded-md mt-1" rows="3" required></textarea>
           </div>
-          <button type="submit" class="w-full bg-black text-white px-6 py-2 rounded-full text-lg font-bold hover:bg-gray-800 transition duration-300">
+          <button type="submit" id="pay-btn" class="w-full bg-black text-white px-6 py-2 rounded-full text-lg font-bold hover:bg-gray-800 transition">
             Continue to Payment
           </button>
+          <p id="pay-status" class="text-sm text-gray-600 hidden mt-2"><span class="spinner"></span> Creating order…</p>
         </form>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-black text-white py-8">
-    <div class="container mx-auto text-center px-4">
-      <p>© 2024 Crafting Better. All rights reserved.</p>
+  <!-- About -->
+  <section id="about" class="container mx-auto px-4 py-12">
+    <div class="bg-white rounded-2xl p-8 shadow">
+      <h3 class="text-2xl font-helvetica mb-4">Our Story</h3>
+      <p class="text-gray-700">
+        Crafting Better began as self-reflection workshops to support mental health. We now use art as a medium for well-being and empowerment — selling handcrafted products made by rural women to generate income and confidence.
+      </p>
     </div>
-  </footer>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="container mx-auto px-4 pb-16">
+    <div class="bg-white rounded-2xl p-8 shadow">
+      <h3 class="text-2xl font-helvetica mb-4">Contact</h3>
+      <p><strong>Email:</strong> hello@craftingbetter.example</p>
+      <p><strong>WhatsApp:</strong> <a class="text-blue-700 underline" href="https://wa.me/919872012508" target="_blank">+91 98720 12508</a></p>
+    </div>
+  </section>
 
   <!-- Payment Status Modal -->
   <div id="payment-status-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="payment-status-title">
-    <div class="modal-content fade-in">
+    <div class="modal-content">
       <button class="close-button" onclick="closePaymentModal()" aria-label="Close modal">&times;</button>
       <h2 id="payment-status-title" class="text-2xl font-bold mb-4"></h2>
       <p id="payment-status-message"></p>
     </div>
   </div>
 
-  <!-- App Script -->
   <script>
-    // ------- CONFIG -------
-    const FUNCTION_URL = "https://us-central1-crafting-better.cloudfunctions.net/createOrderAndSendEmail";
-    const RAZORPAY_KEY = "rzp_live_RDeYPruzKms6fI"; // consider a test key until you finish testing
+    // ====== CONFIG (updated as requested) ======
+    const FUNCTION_URL = "https://createorderandsendemail-lh2rqctzwa-uc.a.run.app";
+    const RAZORPAY_KEY = "rzp_live_RDeYPruzKms6fI"; // Live Key ID you provided
 
-    // Smooth scroll
+    // ----- DOM -----
+    const checkoutSection = document.getElementById('checkout-section');
+    const mainContent = document.querySelector('main');
+    const checkoutProductName = document.getElementById('checkout-product-name');
+    const checkoutProductPrice = document.getElementById('checkout-product-price');
+    const checkoutProductDescription = document.getElementById('checkout-product-description');
+    const checkoutProductImage = document.getElementById('checkout-product-image');
+    const checkoutForm = document.getElementById('checkout-form');
+    const payBtn = document.getElementById('pay-btn');
+    const payStatus = document.getElementById('pay-status');
+
+    const paymentStatusModal = document.getElementById('payment-status-modal');
+    const paymentStatusTitle = document.getElementById('payment-status-title');
+    const paymentStatusMessage = document.getElementById('payment-status-message');
+
+    // ----- Helpers -----
+    function parseINR(str) {
+      const digits = (str || "").toString().replace(/[^\d]/g, "");
+      return digits ? parseInt(digits, 10) : 0;
+    }
+    function showCheckout(name, price, image, description) {
+      checkoutProductName.textContent = name;
+      checkoutProductPrice.textContent = `₹${price}`;
+      checkoutProductImage.src = image;
+      checkoutProductDescription.textContent = description;
+      
+      mainContent.style.display = 'none';
+      document.querySelectorAll('section[id]').forEach(s => {
+          if(s.id !== 'checkout-section' && s.id !== 'top') s.style.display = 'none';
+      });
+
+
+      checkoutSection.classList.remove('hidden');
+      checkoutSection.style.display = 'flex';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function hideCheckout() {
+      checkoutSection.style.display = 'none';
+      checkoutSection.classList.add('hidden');
+      mainContent.style.display = 'block';
+      document.querySelectorAll('section[id]').forEach(s => s.style.display = 'block');
+    }
+    function openPaymentModal(title, message) {
+      paymentStatusTitle.textContent = title;
+      paymentStatusMessage.textContent = message;
+      paymentStatusModal.style.display = 'flex';
+    }
+    function closePaymentModal() {
+      paymentStatusModal.style.display = 'none';
+      hideCheckout();
+      checkoutForm.reset();
+    }
+    window.showCheckout = showCheckout;
+    window.hideCheckout = hideCheckout;
+    window.closePaymentModal = closePaymentModal;
+    
+    // Smooth scroll for nav links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        const targetElement = document.querySelector(this.getAttribute('href'));
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
         if (targetElement) {
-          targetElement.scrollIntoView({ behavior: 'smooth' });
+            targetElement.scrollIntoView({ behavior: 'smooth' });
         }
       });
     });
-
-    // Mobile menu toggle
-    const menuButton = document.getElementById('menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    if (menuButton) {
-      menuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-    }
-    if (mobileMenu) {
-      document.querySelectorAll('#mobile-menu a').forEach(link => {
-        link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-      });
-    }
-
-    // Slider
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('#home .slide');
-    function nextSlide() {
-      if (slides.length > 0) {
-        slides[currentSlide].classList.remove('active');
-        currentSlide = (currentSlide + 1) % slides.length;
-        slides[currentSlide].classList.add('active');
-      }
-    }
-    if (slides.length > 0) {
-      slides[0].classList.add('active');
-      setInterval(nextSlide, 3000);
-    }
-
+    
     // Impact counters
     const counters = document.querySelectorAll('.counter');
     const observer = new IntersectionObserver((entries, obs) => {
@@ -441,14 +396,14 @@
             if (count < target) {
               count += increment;
               const currentCount = Math.min(target, Math.ceil(count));
-              if (counterElement.id === 'value-generated') {
+              if (counterElement.id === 'value-generated-counter') {
                 counterElement.textContent = '₹' + currentCount.toLocaleString('en-IN');
               } else {
                 counterElement.textContent = currentCount.toLocaleString('en-IN');
               }
               requestAnimationFrame(updateCounter);
             } else {
-              if (counterElement.id === 'value-generated') {
+              if (counterElement.id === 'value-generated-counter') {
                 counterElement.textContent = '₹' + target.toLocaleString('en-IN');
               } else {
                 counterElement.textContent = target.toLocaleString('en-IN');
@@ -462,60 +417,7 @@
     }, { threshold: 0.5 });
     counters.forEach(c => observer.observe(c));
 
-    // Checkout & payment
-    const checkoutSection = document.getElementById('checkout-section');
-    const mainContent = document.querySelector('main');
-    const checkoutProductName = document.getElementById('checkout-product-name');
-    const checkoutProductPrice = document.getElementById('checkout-product-price');
-    const checkoutProductDescription = document.getElementById('checkout-product-description');
-    const checkoutProductImage = document.getElementById('checkout-product-image');
-    const checkoutForm = document.getElementById('checkout-form');
-
-    // Modal
-    const paymentStatusModal = document.getElementById('payment-status-modal');
-    const paymentStatusTitle = document.getElementById('payment-status-title');
-    const paymentStatusMessage = document.getElementById('payment-status-message');
-
-    const parseINR = (str) => {
-      const digits = (str || "").toString().replace(/[^\d]/g, "");
-      return digits ? parseInt(digits, 10) : 0;
-    };
-
-    function showCheckout(name, price, image, description) {
-      checkoutProductName.textContent = name;
-      checkoutProductPrice.textContent = `₹${price}`;
-      checkoutProductImage.src = image;
-      checkoutProductDescription.textContent = description;
-      mainContent.classList.add('hidden');
-      checkoutSection.classList.remove('hidden');
-      checkoutSection.style.display = 'flex';
-      checkoutSection.classList.add('fade-in');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function hideCheckout() {
-      checkoutSection.style.display = 'none';
-      checkoutSection.classList.remove('fade-in');
-      mainContent.classList.remove('hidden');
-    }
-
-    function openPaymentModal(title, message) {
-      paymentStatusTitle.textContent = title;
-      paymentStatusMessage.textContent = message;
-      paymentStatusModal.style.display = 'flex';
-    }
-
-    function closePaymentModal() {
-      paymentStatusModal.style.display = 'none';
-      hideCheckout();
-      checkoutForm.reset();
-    }
-
-    // expose to HTML buttons
-    window.showCheckout = showCheckout;
-    window.hideCheckout = hideCheckout;
-    window.closePaymentModal = closePaymentModal;
-
+    // ----- Submit flow -----
     checkoutForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -524,29 +426,27 @@
       const phone = document.getElementById('phone').value.trim();
       const address = document.getElementById('address').value.trim();
       const productName = checkoutProductName.textContent;
-      const productPriceINR = parseINR(checkoutProductPrice.textContent);
+      const amountINR = parseINR(checkoutProductPrice.textContent); // INR number
 
-      await startPayment({
-        productName,
-        amountINR: productPriceINR,
-        customerName: name,
-        customerEmail: email,
-        customerPhone: phone,
-        customerAddress: address
-      });
+      await startPayment({ productName, amountINR, name, email, phone, address });
     });
 
-    async function startPayment({ productName, amountINR, customerName, customerEmail, customerPhone, customerAddress }) {
+    async function startPayment({ productName, amountINR, name, email, phone, address }) {
       try {
-        // Create order + send confirmation emails (customer + admin)
+        // UX: disable button, show spinner
+        payBtn.disabled = true;
+        payBtn.classList.add('opacity-60', 'cursor-not-allowed');
+        payStatus.classList.remove('hidden');
+
+        // 1) Ask backend to create order & send email (customer + admin)
         const payload = {
-          amount: amountINR * 100, // paise
-          email: customerEmail,
+          amountINR,             // INR (backend converts to paise)
+          email,
           meta: {
             productName,
-            customerName,
-            customerPhone,
-            customerAddress
+            customerName: name,
+            customerPhone: phone,
+            customerAddress: address
           }
         };
 
@@ -556,43 +456,52 @@
           body: JSON.stringify(payload)
         });
 
+        const text = await response.text();
+        console.log("createOrder status:", response.status);
+        console.log("createOrder body:", text);
+
         if (!response.ok) {
-          const t = await response.text();
-          throw new Error(`Failed to create order: ${t}`);
+          throw new Error(text || "Failed to create order");
         }
 
-        const { order } = await response.json();
-        if (!order || !order.id) throw new Error("Backend did not return a valid Razorpay order.");
+        const { order } = JSON.parse(text);
+        if (!order?.id) throw new Error("Backend did not return a valid order.id");
 
-        const rzpOptions = {
+        // 2) Open Razorpay with the returned order
+        const rzp = new Razorpay({
           key: RAZORPAY_KEY,
-          amount: order.amount,
+          amount: order.amount, // paise
           currency: order.currency || "INR",
           name: "Crafting Better",
           description: productName,
           order_id: order.id,
-          handler: async function () {
+          handler: function () {
             openPaymentModal(
               'Payment Successful!',
               'Thank you for your order! We have received your payment and will be in touch shortly to confirm shipping details.'
             );
           },
-          prefill: { name: customerName, email: customerEmail, contact: customerPhone },
-          notes: { product: productName, address: customerAddress },
+          prefill: { name, email, contact: phone },
+          notes: { product: productName, address },
           theme: { color: "#d4af37" }
-        };
-
-        const rzp = new Razorpay(rzpOptions);
-        rzp.on('payment.failed', function (resp) {
-          openPaymentModal('Payment Failed', `Error: ${resp?.error?.description || 'Unknown error'}. Please try again or contact us if the issue persists.`);
         });
-        rzp.open();
 
+        rzp.on('payment.failed', function (resp) {
+          console.error("Razorpay failed:", resp);
+          openPaymentModal('Payment Failed', `Error: ${resp?.error?.description || 'Unknown error'}. Please try again.`);
+        });
+
+        rzp.open();
       } catch (err) {
         console.error("Payment init error:", err);
-        openPaymentModal('Error', 'We could not initiate the payment process. Please check your connection and try again.');
+        openPaymentModal('Error', err.message || 'Could not start payment. Please try again.');
+      } finally {
+        payBtn.disabled = false;
+        payBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+        payStatus.classList.add('hidden');
       }
     }
   </script>
 </body>
 </html>
+
