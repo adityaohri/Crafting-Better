@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale-1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crafting Better</title>
     <!-- Removed Poppins font, as Helvetica is a system font -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -577,8 +577,8 @@
 
         async function startPayment(productName, amount, customerName, customerEmail, customerPhone, customerAddress) {
             try {
-                // The URL of your deployed Firebase function to create an order
-                const response = await fetch('https://createorder-lh2rqctzwa-uc.a.run.app', {
+                // MODIFIED: Replaced with your new Cloud Function URL
+                const response = await fetch('https://us-central1-crafting-better.cloudfunctions.net/createOrder', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ amount })
@@ -613,11 +613,8 @@
                                 to: ["sumitpoojaohri@gmail.com", "adityaohri2401@gmail.com"]
                             };
                             
-                            // *****************************************************************************
-                            // IMPORTANT: You must create and deploy a Firebase Function to send emails
-                            // and replace the URL below with your actual function URL.
-                            // *****************************************************************************
-                            await fetch('https://YOUR_CLOUD_FUNCTION_URL_FOR_SENDING_EMAIL', {
+                            // MODIFIED: Replaced with your new Cloud Function URL
+                            await fetch('https://us-central1-crafting-better.cloudfunctions.net/sendOrderEmail', {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify(orderDetails)
