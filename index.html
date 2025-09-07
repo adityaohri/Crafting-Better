@@ -387,6 +387,8 @@
       paymentStatusModal.style.display = 'flex';
     }
     
+    // The main fix is here:
+    // This function will now be responsible for clearing the cart and resetting the UI
     function closePaymentModal() {
       paymentStatusModal.style.display = 'none';
       hideCheckout();
@@ -546,14 +548,9 @@
           description: `Order for ${name}`,
           order_id: order.id,
           handler: function(response) {
-            // New logic to ensure a full UI reset
+            // Only show the success modal here.
+            // The logic to clear the cart will now be handled by the closePaymentModal() function.
             openPaymentModal('Payment Successful!', 'Thank you for your order! We have received your payment and will be in touch shortly to confirm shipping details.');
-            
-            // Perform the full cleanup and UI reset here
-            cart = []; 
-            updateCartDisplay();
-            hideCheckout();
-            checkoutForm.reset();
           },
           prefill: { name, email, contact: phone },
           notes: { address },
