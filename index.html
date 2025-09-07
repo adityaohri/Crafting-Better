@@ -387,8 +387,6 @@
       paymentStatusModal.style.display = 'flex';
     }
     
-    // The main fix is here:
-    // This function will now be responsible for clearing the cart and resetting the UI
     function closePaymentModal() {
       paymentStatusModal.style.display = 'none';
       hideCheckout();
@@ -548,9 +546,16 @@
           description: `Order for ${name}`,
           order_id: order.id,
           handler: function(response) {
-            // Only show the success modal here.
-            // The logic to clear the cart will now be handled by the closePaymentModal() function.
             openPaymentModal('Payment Successful!', 'Thank you for your order! We have received your payment and will be in touch shortly to confirm shipping details.');
+            
+            // This is the new, final fix.
+            // It ensures the UI is updated only after the Razorpay modal has fully closed.
+            setTimeout(() => {
+              cart = [];
+              updateCartDisplay();
+              hideCheckout();
+              checkoutForm.reset();
+            }, 0);
           },
           prefill: { name, email, contact: phone },
           notes: { address },
