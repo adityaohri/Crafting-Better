@@ -546,6 +546,7 @@
           description: `Order for ${name}`,
           order_id: order.id,
           handler: function(response) {
+            // New logic to ensure a full UI reset
             openPaymentModal('Payment Successful!', 'Thank you for your order! We have received your payment and will be in touch shortly to confirm shipping details.');
             
             // This is the new, final fix.
