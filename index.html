@@ -548,7 +548,12 @@
           handler: function(response) {
             // New logic to ensure a full UI reset
             openPaymentModal('Payment Successful!', 'Thank you for your order! We have received your payment and will be in touch shortly to confirm shipping details.');
-            closePaymentModal(); // This will clear the cart and reset the UI
+            
+            // Perform the full cleanup and UI reset here
+            cart = []; 
+            updateCartDisplay();
+            hideCheckout();
+            checkoutForm.reset();
           },
           prefill: { name, email, contact: phone },
           notes: { address },
