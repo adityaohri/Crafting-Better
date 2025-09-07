@@ -1,573 +1,575 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Crafting Better</title>
-  <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1VLB8aZ9XZWuif1ZnLxaeeL26LbVHaCSK" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Crafting Better</title>
+  <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1VLB8aZ9XZWuif1ZnLxaeeL26LbVHaCSK" />
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-  <style>
-    body { font-family: 'Helvetica', sans-serif; color:#000; line-height:1.6; background-color:#F2EFE6; }
-    .font-helvetica { font-family: 'Helvetica', sans-serif; }
-    .nav-link:hover { color:#d4af37; }
-    .product-card { transition: transform .3s, box-shadow .3s; }
-    .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,.1); }
-    .action-button { background:#d4af37; color:#fff; font-weight:700; border-radius:9999px; transition: background-color .3s; }
-    .action-button:hover { background:#c09d31; }
-    .modal { display:none; position:fixed; z-index:100; inset:0; background:rgba(0,0,0,.4); justify-content:center; align-items:center; }
-    .modal-content { background:#fff; padding:2rem; border-radius:.75rem; box-shadow:0 5px 15px rgba(0,0,0,.3); max-width:520px; width:92%; text-align:center; }
-    .close-button { color:#aaa; float:right; font-size:28px; font-weight:bold; }
-    .close-button:hover { color:#000; cursor:pointer; }
-    .spinner { border:4px solid #eee; border-top:4px solid #d4af37; border-radius:50%; width:26px; height:26px; animation:spin 1s linear infinite; display:inline-block; vertical-align:middle; }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
-    .counter { text-align: center; }
-    .animate-bounce-chat { animation: bounce-chat 2.5s infinite ease-in-out; }
-    @keyframes bounce-chat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-    #cart-modal { justify-content: flex-end; }
-    #cart-content { max-width: 400px; width:100%; height:100%; border-radius:0; text-align:left; display:flex; flex-direction:column; }
-    .cart-item { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
-    .cart-item img { width: 60px; height: 60px; object-cover; border-radius: 8px; }
-    .cart-item-details { flex-grow: 1; }
-    .cart-item-quantity { display: flex; align-items: center; gap: 0.5rem; }
-    .quantity-btn { background: #eee; border-radius: 50%; width: 24px; height: 24px; border: none; cursor: pointer; }
-    #cart-icon-container { position: relative; }
-    #cart-count { position: absolute; top: -8px; right: -10px; background: #d4af37; color: white; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; display: flex; justify-content: center; align-items: center; font-weight: bold; }
-    .swiper-button-next, .swiper-button-prev { color: white !important; background-color: rgba(0, 0, 0, 0.3); border-radius: 50%; width: 44px !important; height: 44px !important; }
-    .swiper-button-next::after, .swiper-button-prev::after { font-size: 18px !important; font-weight: bold; }
-    .swiper-pagination-bullet-active { background: #d4af37 !important; }
-  </style>
+  <style>
+    body { font-family: 'Helvetica', sans-serif; color:#000; line-height:1.6; background-color:#F2EFE6; }
+    .font-helvetica { font-family: 'Helvetica', sans-serif; }
+    .nav-link:hover { color:#d4af37; }
+    .product-card { transition: transform .3s, box-shadow .3s; }
+    .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,.1); }
+    .action-button { background:#d4af37; color:#fff; font-weight:700; border-radius:9999px; transition: background-color .3s; }
+    .action-button:hover { background:#c09d31; }
+    .modal { display:none; position:fixed; z-index:100; inset:0; background:rgba(0,0,0,.4); justify-content:center; align-items:center; }
+    .modal-content { background:#fff; padding:2rem; border-radius:.75rem; box-shadow:0 5px 15px rgba(0,0,0,.3); max-width:520px; width:92%; text-align:center; }
+    .close-button { color:#aaa; float:right; font-size:28px; font-weight:bold; }
+    .close-button:hover { color:#000; cursor:pointer; }
+    .spinner { border:4px solid #eee; border-top:4px solid #d4af37; border-radius:50%; width:26px; height:26px; animation:spin 1s linear infinite; display:inline-block; vertical-align:middle; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    .counter { text-align: center; }
+    .animate-bounce-chat { animation: bounce-chat 2.5s infinite ease-in-out; }
+    @keyframes bounce-chat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    #cart-modal { justify-content: flex-end; }
+    #cart-content { max-width: 400px; width:100%; height:100%; border-radius:0; text-align:left; display:flex; flex-direction:column; }
+    .cart-item { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .cart-item img { width: 60px; height: 60px; object-cover; border-radius: 8px; }
+    .cart-item-details { flex-grow: 1; }
+    .cart-item-quantity { display: flex; align-items: center; gap: 0.5rem; }
+    .quantity-btn { background: #eee; border-radius: 50%; width: 24px; height: 24px; border: none; cursor: pointer; }
+    #cart-icon-container { position: relative; }
+    #cart-count { position: absolute; top: -8px; right: -10px; background: #d4af37; color: white; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; display: flex; justify-content: center; align-items: center; font-weight: bold; }
+    .swiper-button-next, .swiper-button-prev { color: white !important; background-color: rgba(0, 0, 0, 0.3); border-radius: 50%; width: 44px !important; height: 44px !important; }
+    .swiper-button-next::after, .swiper-button-prev::after { font-size: 18px !important; font-weight: bold; }
+    .swiper-pagination-bullet-active { background: #d4af37 !important; }
+  </style>
 </head>
 
 <body class="bg-[#F2EFE6]">
-  <header class="p-4 shadow bg-[#F2EFE6] sticky top-0 z-50">
-    <div class="container mx-auto flex justify-between items-center">
-      <a href="#top" class="flex items-center gap-3">
-        <img src="https://lh3.googleusercontent.com/d/1VLB8aZ9XZWuif1ZnLxaeeL26LbVHaCSK" alt="Crafting Better Logo" class="w-10 h-10 rounded-full object-cover" />
-        <h1 class="text-xl font-helvetica uppercase">Crafting Better</h1>
-      </a>
-      <div class="flex items-center gap-6">
-        <nav class="hidden md:flex gap-6">
-          <a class="nav-link font-medium" href="#about">About</a>
-          <a class="nav-link font-medium" href="#our-impact">Our Impact</a>
-          <a class="nav-link font-medium" href="#our-partners">Our Partners</a>
-          <a class="nav-link font-medium" href="#products">Products</a>
-          <a class="nav-link font-medium" href="#contact">Contact</a>
-        </nav>
-        <div id="cart-icon-container" class="cursor-pointer" onclick="showCart()">
-          <i class="fas fa-shopping-cart text-2xl"></i>
-          <span id="cart-count" class="hidden">0</span>
-        </div>
-      </div>
-    </div>
-  </header>
+  <header class="p-4 shadow bg-[#F2EFE6] sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="#top" class="flex items-center gap-3">
+        <img src="https://lh3.googleusercontent.com/d/1VLB8aZ9XZWuif1ZnLxaeeL26LbVHaCSK" alt="Crafting Better Logo" class="w-10 h-10 rounded-full object-cover" />
+        <h1 class="text-xl font-helvetica uppercase">Crafting Better</h1>
+      </a>
+      <div class="flex items-center gap-6">
+        <nav class="hidden md:flex gap-6">
+          <a class="nav-link font-medium" href="#about">About</a>
+          <a class="nav-link font-medium" href="#our-impact">Our Impact</a>
+          <a class="nav-link font-medium" href="#our-partners">Our Partners</a>
+          <a class="nav-link font-medium" href="#products">Products</a>
+          <a class="nav-link font-medium" href="#contact">Contact</a>
+        </nav>
+        <div id="cart-icon-container" class="cursor-pointer" onclick="showCart()">
+          <i class="fas fa-shopping-cart text-2xl"></i>
+          <span id="cart-count" class="hidden">0</span>
+        </div>
+      </div>
+    </div>
+  </header>
 
-  <main>
-    <section id="top" class="container mx-auto px-4 py-10">
-      <div class="rounded-2xl p-8 md:p-12 bg-white shadow flex flex-col md:flex-row gap-8 items-center">
-        <div class="w-full md:w-1/2">
-          <h2 class="text-2xl md:text-3xl font-helvetica mb-4">Promoting mental well-being through art while empowering rural communities.</h2>
-          <p class="text-gray-700">Started in December 2024, we run creative workshops and sell handcrafted products made by rural communities - turning art into income and confidence.</p>
-          <a href="#products" class="inline-block mt-6 bg-black text-white px-6 py-2 rounded-full text-lg font-bold hover:bg-gray-800 transition">Explore Products</a>
-        </div>
-        <div class="w-full md:w-1/2">
-          <div class="swiper hero-slider rounded-xl shadow overflow-hidden">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide"><img class="w-full h-[320px] object-cover" src="https://lh3.googleusercontent.com/d/1kcRA9117tw-vhp_ekMmiNXuh3z-ullbR" alt="Women crafting handmade goods" /></div>
-              <div class="swiper-slide"><img class="w-full h-[320px] object-cover" src="https://lh3.googleusercontent.com/d/1w-0CcFDL9_QZOcT2lfn1NILWi2X_yWWc" alt="Crafting Better product display" /></div>
-              <div class="swiper-slide"><img class="w-full h-[320px] object-cover" src="https://lh3.googleusercontent.com/d/1iwpg6u4FZy6wHOFQ6EY3EkhhzLLbWXyg" alt="Handmade products" /></div>
-              <div class="swiper-slide"><img class="w-full h-[320px] object-cover" src="https://lh3.googleusercontent.com/d/1RmK7UBXeOdYOpCnHY6RF5Zl2_lchZTYG" alt="Crafting process" /></div>
-            </div>
-            <div class="swiper-pagination"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
-          </div>
-        </div>
-      </div>
-    </section>
+  <main>
+    <section id="top" class="container mx-auto px-4 py-10">
+      <div class="rounded-2xl p-8 md:p-12 bg-white shadow flex flex-col md:flex-row gap-8 items-center">
+        <div class="w-full md:w-1/2">
+          <h2 class="text-2xl md:text-3xl font-helvetica mb-4">Promoting mental well-being through art while empowering rural communities.</h2>
+          <p class="text-gray-700">Started in December 2024, we run creative workshops and sell handcrafted products made by rural communities - turning art into income and confidence.</p>
+          <a href="#products" class="inline-block mt-6 bg-black text-white px-6 py-2 rounded-full text-lg font-bold hover:bg-gray-800 transition">Explore Products</a>
+        </div>
+        <div class="w-full md:w-1/2">
+          <div class="swiper hero-slider rounded-xl shadow overflow-hidden">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide"><img class="w-full h-[320px] object-cover" src="https://lh3.googleusercontent.com/d/1kcRA9117tw-vhp_ekMmiNXuh3z-ullbR" alt="Women crafting handmade goods" /></div>
+              <div class="swiper-slide"><img class="w-full h-[320px] object-cover" src="https://lh3.googleusercontent.com/d/1w-0CcFDL9_QZOcT2lfn1NILWi2X_yWWc" alt="Crafting Better product display" /></div>
+              <div class="swiper-slide"><img class="w-full h-[320px] object-cover" src="https://lh3.googleusercontent.com/d/1iwpg6u4FZy6wHOFQ6EY3EkhhzLLbWXyg" alt="Handmade products" /></div>
+              <div class="swiper-slide"><img class="w-full h-[320px] object-cover" src="https://lh3.googleusercontent.com/d/1RmK7UBXeOdYOpCnHY6RF5Zl2_lchZTYG" alt="Crafting process" /></div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <section id="about" class="container mx-auto px-4 py-12">
-      <div class="bg-white rounded-2xl p-8 shadow text-center">
-        <h3 class="text-2xl font-helvetica mb-4">Our Story</h3>
-        <div class="text-gray-700 space-y-4 text-left max-w-3xl mx-auto">
-          <p>Crafting Better is a social initiative by Kripa and Aditya Ohri, students of Mayo, that uses art as a medium to promote mental health and self-expression. Inspired by their mother’s love for art, Kripa combined her passion for psychology with creativity, while Aditya supported her in shaping the platform into a space for empowerment and change.</p>
-          <p>To strengthen her expertise and bring more value to the initiative, Kripa attended specialized programs at Ashoka University, IIT Delhi, IIT Bombay, and NID Ahmedabad, where she gained deeper insights into the connection between art and mental health. These learnings became the foundation of Crafting Better’s approach, blending creativity with psychological awareness.</p>
-          <p>Building on this vision, Crafting Better conducts creative workshops and develops handcrafted products that nurture creativity and empower individuals, especially rural girls, by fostering confidence, independence, and self-expression. As Mayo celebrates 150 years, the initiative proudly presents its first exhibition, showcasing how art and psychology unite to create meaningful change.</p>
-        </div>
-      </div>
-    </section>
+    <section id="about" class="container mx-auto px-4 py-12">
+      <div class="bg-white rounded-2xl p-8 shadow text-center">
+        <h3 class="text-2xl font-helvetica mb-4">Our Story</h3>
+        <div class="text-gray-700 space-y-4 text-left max-w-3xl mx-auto">
+          <p>Crafting Better is a social initiative by Kripa and Aditya Ohri, students of Mayo, that uses art as a medium to promote mental health and self-expression. Inspired by their mother’s love for art, Kripa combined her passion for psychology with creativity, while Aditya supported her in shaping the platform into a space for empowerment and change.</p>
+          <p>To strengthen her expertise and bring more value to the initiative, Kripa attended specialized programs at Ashoka University, IIT Delhi, IIT Bombay, and NID Ahmedabad, where she gained deeper insights into the connection between art and mental health. These learnings became the foundation of Crafting Better’s approach, blending creativity with psychological awareness.</p>
+          <p>Building on this vision, Crafting Better conducts creative workshops and develops handcrafted products that nurture creativity and empower individuals, especially rural girls, by fostering confidence, independence, and self-expression. As Mayo celebrates 150 years, the initiative proudly presents its first exhibition, showcasing how art and psychology unite to create meaningful change.</p>
+        </div>
+      </div>
+    </section>
 
-    <section id="exhibition" class="container mx-auto px-4 py-12">
-      <div class="bg-white rounded-2xl p-8 shadow text-center">
-        <h3 class="text-3xl font-helvetica mb-4">Our First Exhibition</h3>
-        <p class="text-gray-700 max-w-3xl mx-auto mb-8">We exhibited our products for the first time during the 150th Celebration Dinner of Mayo College on 30th August 2025 at Pratap Mahal, Pushkar.</p>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1H3ZJK9kVVwGilKSMJmmyeFfu_P14O_LP" alt="Exhibition Image 6" class="w-full h-full object-cover object-top"></div>
-          <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1i5ZVKPZU4awbCw0cvWd0IRhHv28HF9XZ" alt="Exhibition Image" class="w-full h-full object-cover object-center"></div>
-          <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1uhIgnDV1EXyuwBPF7W1eRRtIgPySWYz0" alt="Exhibition Image" class="w-full h-full object-cover object-center"></div>
-          <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1DyRv_g62HmKzKxf2TjnUW34Auev6ZRzZ" alt="Exhibition Image" class="w-full h-full object-cover object-center"></div>
-          <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1zymfoTCrsE_t-2tj6OkzdyFvjrir2QoT" alt="Exhibition Image 3" class="w-full h-full object-cover object-center"></div>
-          <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1rH0lgvh8gRbTZjjvaNs4im0EG4AypoG4" alt="Exhibition Image" class="w-full h-full object-cover object-center"></div>
-          <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1vNHMlsQP53u08vzQXpYmdzVs5omDphB2" alt="Exhibition Image" class="w-full h-full object-cover object-center"></div>
-          <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/19eISRCAf_aBoxw40OU2FDgUmTdsAINmb" alt="Exhibition Image" class="w-full h-full object-cover object-center"></div>
-        </div>
-      </div>
-    </section>
+    <section id="exhibition" class="container mx-auto px-4 py-12">
+      <div class="bg-white rounded-2xl p-8 shadow text-center">
+        <h3 class="text-3xl font-helvetica mb-4">Our First Exhibition</h3>
+        <p class="text-gray-700 max-w-3xl mx-auto mb-8">We exhibited our products for the first time during the 150th Celebration Dinner of Mayo College on 30th August 2025 at Pratap Mahal, Pushkar.</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1H3ZJK9kVVwGilKSMJmmyeFfu_P14O_LP" alt="Exhibition Image 6" class="w-full h-full object-cover object-top"></div>
+          <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1i5ZVKPZU4awbCw0cvWd0IRhHv28HF9XZ" alt="Exhibition Image" class="w-full h-full object-cover object-center"></div>
+          <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1uhIgnDV1EXyuwBPF7W1eRRtIgPySWYz0" alt="Exhibition Image" class="w-full h-full object-cover object-center"></div>
+          <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1DyRv_g62HmKzKxf2TjnUW34Auev6ZRzZ" alt="Exhibition Image" class="w-full h-full object-cover object-center"></div>
+          <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1zymfoTCrsE_t-2tj6OkzdyFvjrir2QoT" alt="Exhibition Image 3" class="w-full h-full object-cover object-center"></div>
+          <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1rH0lgvh8gRbTZjjvaNs4im0EG4AypoG4" alt="Exhibition Image" class="w-full h-full object-cover object-center"></div>
+          <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1vNHMlsQP53u08vzQXpYmdzVs5omDphB2" alt="Exhibition Image" class="w-full h-full object-cover object-center"></div>
+          <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/19eISRCAf_aBoxw40OU2FDgUmTdsAINmb" alt="Exhibition Image" class="w-full h-full object-cover object-center"></div>
+        </div>
+      </div>
+    </section>
 
-    <section id="our-impact" class="container mx-auto px-4 py-12">
-      <div class="bg-white rounded-2xl p-8 shadow text-center">
-        <h3 class="text-3xl font-helvetica mb-8">Our Impact</h3>
-        <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16">
-          <div class="counter"><div class="text-5xl font-semibold font-helvetica text-black" data-target="21">0</div><p class="text-black font-helvetica mt-2">Individual Empowered</p></div>
-          <div class="counter"><div class="text-5xl font-semibold font-helvetica text-black" data-target="52">0</div><p class="text-black font-helvetica mt-2">Products Sold</p></div>
-          <div class="counter"><div class="text-5xl font-semibold font-helvetica text-black" data-target="38113" id="value-generated-counter">0</div><p class="text-black font-helvetica mt-2">Value Generated</p></div>
-        </div>
-        <p class="text-sm text-gray-600 mt-6">We have started selling a month back and still have a long way to go...</p>
-      </div>
-    </section>
+    <section id="our-impact" class="container mx-auto px-4 py-12">
+      <div class="bg-white rounded-2xl p-8 shadow text-center">
+        <h3 class="text-3xl font-helvetica mb-8">Our Impact</h3>
+        <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16">
+          <div class="counter"><div class="text-5xl font-semibold font-helvetica text-black" data-target="21">0</div><p class="text-black font-helvetica mt-2">Individual Empowered</p></div>
+          <div class="counter"><div class="text-5xl font-semibold font-helvetica text-black" data-target="52">0</div><p class="text-black font-helvetica mt-2">Products Sold</p></div>
+          <div class="counter"><div class="text-5xl font-semibold font-helvetica text-black" data-target="38113" id="value-generated-counter">0</div><p class="text-black font-helvetica mt-2">Value Generated</p></div>
+        </div>
+        <p class="text-sm text-gray-600 mt-6">We have started selling a month back and still have a long way to go...</p>
+      </div>
+    </section>
 
-    <section id="our-partners" class="container mx-auto px-4 py-12">
-      <div class="bg-white rounded-2xl p-8 shadow text-center">
-        <h3 class="text-3xl font-helvetica mb-8">Our Partners</h3>
-        <div class="flex flex-wrap items-center justify-center gap-8 md:gap-16">
-          <img src="https://lh3.googleusercontent.com/d/1ez_BGjm4w8DkxskUFncWMuniTYGciG5f" alt="Mayo College Girls School Logo" class="h-24 md:h-32 object-contain" />
-          <img src="https://lh3.googleusercontent.com/d/1nzqC8G7tCdZwwBAZ2318eRnM79a7kjhD" alt="Crafting Better Partner Logo" class="h-24 md:h-32 object-contain" />
-        </div>
-      </div>
-    </section>
+    <section id="our-partners" class="container mx-auto px-4 py-12">
+      <div class="bg-white rounded-2xl p-8 shadow text-center">
+        <h3 class="text-3xl font-helvetica mb-8">Our Partners</h3>
+        <div class="flex flex-wrap items-center justify-center gap-8 md:gap-16">
+          <img src="https://lh3.googleusercontent.com/d/1ez_BGjm4w8DkxskUFncWMuniTYGciG5f" alt="Mayo College Girls School Logo" class="h-24 md:h-32 object-contain" />
+          <img src="https://lh3.googleusercontent.com/d/1nzqC8G7tCdZwwBAZ2318eRnM79a7kjhD" alt="Crafting Better Partner Logo" class="h-24 md:h-32 object-contain" />
+        </div>
+      </div>
+    </section>
 
-    <div id="products" class="container mx-auto px-4 py-12">
-      <h3 class="text-3xl font-helvetica mb-8 text-center">Our Products</h3>
-      <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"></div>
-    </div>
-  </main>
+    <div id="products" class="container mx-auto px-4 py-12">
+      <h3 class="text-3xl font-helvetica mb-8 text-center">Our Products</h3>
+      <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"></div>
+    </div>
+  </main>
 
-  <a href="https://wa.me/919872012508" target="_blank" class="fixed bottom-8 right-8 z-50 flex flex-col items-center space-y-2 animate-bounce-chat" aria-label="Chat on WhatsApp">
-    <img src="https://lh3.googleusercontent.com/d/14qNtNhVPPLTIEU0DD7oahwhwQxG95F6W" alt="Peacock Chat Icon" class="w-16 h-16 object-contain" />
-    <span class="text-xs font-semibold text-black">Chat on WhatsApp</span>
-  </a>
+  <a href="https://wa.me/919872012508" target="_blank" class="fixed bottom-8 right-8 z-50 flex flex-col items-center space-y-2 animate-bounce-chat" aria-label="Chat on WhatsApp">
+    <img src="https://lh3.googleusercontent.com/d/14qNtNhVPPLTIEU0DD7oahwhwQxG95F6W" alt="Peacock Chat Icon" class="w-16 h-16 object-contain" />
+    <span class="text-xs font-semibold text-black">Chat on WhatsApp</span>
+  </a>
 
-  <section id="checkout-section" class="hidden min-h-screen items-center justify-center p-8 bg-white">
-    <div class="container mx-auto flex flex-col md:flex-row items-start justify-center p-8 rounded-xl shadow-lg bg-gray-50 max-w-4xl">
-      <div class="md:w-1/2 p-4">
-        <h3 class="text-2xl font-semibold text-black mb-4">Order Summary</h3>
-        <div class="mb-4 bg-amber-100 p-4 rounded-lg border border-amber-300 text-amber-800 text-sm">
-          <p><i class="fas fa-shipping-fast mr-2"></i>Shipping: <strong>₹70</strong> for orders below ₹1000, <strong>₹90</strong> for orders ₹1000 and above.</p>
-        </div>
-        <div id="checkout-summary" class="space-y-2 mb-4"></div>
-        <div class="text-xl font-bold text-right border-t pt-2">
-          Total: <span id="checkout-total"></span>
-        </div>
-        <button onclick="hideCheckout()" class="mt-6 bg-gray-400 text-white px-6 py-2 rounded-full text-lg font-bold hover:bg-gray-500 transition">Back to Products</button>
-      </div>
-      <div class="md:w-1/2 p-4 w-full">
-        <h3 class="text-2xl font-semibold text-black mb-4 text-center md:text-left">Customer Details</h3>
-        <form id="checkout-form" class="space-y-4">
-          <div><label for="name" class="block text-gray-700">Name</label><input type="text" id="name" class="w-full p-2 border border-gray-300 rounded-md mt-1" required /></div>
-          <div><label for="email" class="block text-gray-700">Email</label><input type="email" id="email" class="w-full p-2 border border-gray-300 rounded-md mt-1" required /></div>
-          <div><label for="phone" class="block text-gray-700">Phone</label><input type="tel" id="phone" class="w-full p-2 border border-gray-300 rounded-md mt-1" required /></div>
-          <div><label for="address" class="block text-gray-700">Shipping Address</label><textarea id="address" class="w-full p-2 border border-gray-300 rounded-md mt-1" rows="3" required></textarea></div>
-          <button type="submit" id="pay-btn" class="w-full bg-black text-white px-6 py-2 rounded-full text-lg font-bold hover:bg-gray-800 transition">Continue to Payment</button>
-          <p id="pay-status" class="text-sm text-gray-600 hidden mt-2"><span class="spinner"></span> Creating order…</p>
-        </form>
-      </div>
-    </div>
-  </section>
+  <section id="checkout-section" class="hidden min-h-screen items-center justify-center p-8 bg-white">
+    <div class="container mx-auto flex flex-col md:flex-row items-start justify-center p-8 rounded-xl shadow-lg bg-gray-50 max-w-4xl">
+      <div class="md:w-1/2 p-4">
+        <h3 class="text-2xl font-semibold text-black mb-4">Order Summary</h3>
+        <div class="mb-4 bg-amber-100 p-4 rounded-lg border border-amber-300 text-amber-800 text-sm">
+          <p><i class="fas fa-shipping-fast mr-2"></i>Shipping: <strong>₹70</strong> for orders below ₹1000, <strong>₹90</strong> for orders ₹1000 and above.</p>
+        </div>
+        <div id="checkout-summary" class="space-y-2 mb-4"></div>
+        <div class="text-xl font-bold text-right border-t pt-2">
+          Total: <span id="checkout-total"></span>
+        </div>
+        <button onclick="hideCheckout()" class="mt-6 bg-gray-400 text-white px-6 py-2 rounded-full text-lg font-bold hover:bg-gray-500 transition">Back to Products</button>
+      </div>
+      <div class="md:w-1/2 p-4 w-full">
+        <h3 class="text-2xl font-semibold text-black mb-4 text-center md:text-left">Customer Details</h3>
+        <form id="checkout-form" class="space-y-4">
+          <div><label for="name" class="block text-gray-700">Name</label><input type="text" id="name" class="w-full p-2 border border-gray-300 rounded-md mt-1" required /></div>
+          <div><label for="email" class="block text-gray-700">Email</label><input type="email" id="email" class="w-full p-2 border border-gray-300 rounded-md mt-1" required /></div>
+          <div><label for="phone" class="block text-gray-700">Phone</label><input type="tel" id="phone" class="w-full p-2 border border-gray-300 rounded-md mt-1" required /></div>
+          <div><label for="address" class="block text-gray-700">Shipping Address</label><textarea id="address" class="w-full p-2 border border-gray-300 rounded-md mt-1" rows="3" required></textarea></div>
+          <button type="submit" id="pay-btn" class="w-full bg-black text-white px-6 py-2 rounded-full text-lg font-bold hover:bg-gray-800 transition">Continue to Payment</button>
+          <p id="pay-status" class="text-sm text-gray-600 hidden mt-2"><span class="spinner"></span> Creating order…</p>
+        </form>
+      </div>
+    </div>
+  </section>
 
-  <div id="cart-modal" class="modal">
-    <div id="cart-content" class="modal-content">
-      <div class="flex justify-between items-center mb-6"><h2 class="text-2xl font-bold">Your Cart</h2><button class="close-button" onclick="hideCart()" aria-label="Close cart">×</button></div>
-      <div id="cart-items" class="flex-grow overflow-y-auto"></div>
-      <div class="border-t pt-4 mt-4">
-        <div class="flex justify-between items-center text-xl font-bold mb-4"><span>Total</span><span id="cart-total">₹0</span></div>
-        <button id="checkout-btn" class="w-full action-button" onclick="showCheckout()">Proceed to Checkout</button>
-      </div>
-    </div>
-  </div>
+  <div id="cart-modal" class="modal">
+    <div id="cart-content" class="modal-content">
+      <div class="flex justify-between items-center mb-6"><h2 class="text-2xl font-bold">Your Cart</h2><button class="close-button" onclick="hideCart()" aria-label="Close cart">×</button></div>
+      <div id="cart-items" class="flex-grow overflow-y-auto"></div>
+      <div class="border-t pt-4 mt-4">
+        <div class="flex justify-between items-center text-xl font-bold mb-4"><span>Total</span><span id="cart-total">₹0</span></div>
+        <button id="checkout-btn" class="w-full action-button" onclick="showCheckout()">Proceed to Checkout</button>
+      </div>
+      </div>
+  </div>
 
-  <section id="contact" class="container mx-auto px-4 pb-16">
-    <div class="bg-white rounded-2xl p-8 shadow">
-      <h3 class="text-2xl font-helvetica mb-4">Contact</h3>
-      <p><strong>Email:</strong> <a class="text-black no-underline" href="mailto:contact@craftingbetter.org">contact@craftingbetter.org</a></p>
-      <p><strong>WhatsApp:</strong> <a class="text-black no-underline" href="https://wa.me/919872012508" target="_blank">+91 98720 12508</a></p>
-    </div>
-  </section>
+  <section id="contact" class="container mx-auto px-4 pb-16">
+    <div class="bg-white rounded-2xl p-8 shadow">
+      <h3 class="text-2xl font-helvetica mb-4">Contact</h3>
+      <p><strong>Email:</strong> <a class="text-black no-underline" href="mailto:contact@craftingbetter.org">contact@craftingbetter.org</a></p>
+      <p><strong>WhatsApp:</strong> <a class="text-black no-underline" href="https://wa.me/919872012508" target="_blank">+91 98720 12508</a></p>
+    </div>
+  </section>
 
-  <div id="payment-status-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="payment-status-title">
-    <div class="modal-content">
-      <button class="close-button" onclick="closePaymentModal()" aria-label="Close modal">×</button>
-      <h2 id="payment-status-title" class="text-2xl font-bold mb-4"></h2>
-      <p id="payment-status-message"></p>
-    </div>
-  </div>
+  <div id="payment-status-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="payment-status-title">
+    <div class="modal-content">
+      <button class="close-button" onclick="closePaymentModal()" aria-label="Close modal">×</button>
+      <h2 id="payment-status-title" class="text-2xl font-bold mb-4"></h2>
+      <p id="payment-status-message"></p>
+    </div>
+  </div>
 
-  <script>
-    // ====== CONFIG (live) ======
-    // New V2 Cloud Functions endpoint
-    const FUNCTION_URL = "https://us-central1-crafting-better.cloudfunctions.net/createOrderV2";
-    // Set the webhook URL in Razorpay Dashboard (not used by frontend):
-    // https://us-central1-crafting-better.cloudfunctions.net/razorpayWebhookV2
-    const RAZORPAY_KEY = "rzp_live_RDeYPruzKms6fI";
+  <script>
+    // ====== CONFIG (live) ======
+    // New V2 Cloud Functions endpoint
+    const FUNCTION_URL = "https://us-central1-crafting-better.cloudfunctions.net/createOrderV2";
+    // Set the webhook URL in Razorpay Dashboard (not used by frontend):
+    // https://us-central1-crafting-better.cloudfunctions.net/razorpayWebhookV2
+    const RAZORPAY_KEY = "rzp_live_RDeYPruzKms6fI";
 
-    const SHIPPING_THRESHOLD = 1000;
-    const SHIPPING_FEE_BELOW = 70;
-    const SHIPPING_FEE_ABOVE = 90;
+    const SHIPPING_THRESHOLD = 1000;
+    const SHIPPING_FEE_BELOW = 70;
+    const SHIPPING_FEE_ABOVE = 90;
 
-    // ----- PRODUCT DATA -----
-    const products = [
-      { name: 'Pachranga Crochet Coaster', price: 100, image: 'https://lh3.googleusercontent.com/d/1v_xdcmhkZ-tNns-ysH2ABVbveJjKSd9F', description: 'A handcrafted crochet design echoing the colors of our pachranga flag – where heritage meets artistry' },
-      { name: 'Pachranga Crochet Cup Cover', price: 300, image: 'https://lh3.googleusercontent.com/d/1HQandW1uvnH0LdiQtP3u1Ux4yLVcrJus', description: 'Celebrate school pride with every sip – handmade crochet mug cover in pachranga flag colors.' },
-      { name: 'Mayo Embroidered Pouches', price: 300, image: 'https://lh3.googleusercontent.com/d/16DVa9wsZMqKJszBmCidhaQrif8ULCuWh', description: 'Utility meets artistry – handcrafted pouch with signature Mayo embroidery.' },
-      { name: 'Mayo Sipper', price: 350, image: 'https://lh3.googleusercontent.com/d/10ytaBMizKfIZNAlWb3e7D26fDii8yXAy', description: 'Sip the Legacy – Celebrating 150 Years of Mayo, One Stitch at a Time' },
-      { name: 'Peacock Embroidered Bookmark', price: 500, image: 'https://lh3.googleusercontent.com/d/1R9w9BpyzS1m4PejOX08-feHTAD-r7jtN', description: 'Elegant brass bookmark with hand-embroidered peacock feather – a timeless keepsake of Mayo’s spirit.' },
-      { name: 'Peacock Embroidered Keychain', price: 650, image: 'https://lh3.googleusercontent.com/d/1LHAh3cd9eD_2U3R_ltrh7g0JVZQgrVRp', description: 'The timeless charm of a peacock feather, now at your fingertips' },
-      { name: 'Proud Mayoite Keychain', price: 650, image: 'https://lh3.googleusercontent.com/d/1TR7JrJ7m7hKDVXH5sJCP-RIdt21yNmt-', description: 'Pride on your keys.A timeless keepsake for every Mayoite.' },
-      { name: 'Pachranga Embroidered Keychain', price: 650, image: 'https://lh3.googleusercontent.com/d/1Uzs1EJNi2SQWBI8pSXcAe4-TKvs8Zhqq', description: 'Carry your pride everywhere – a handcrafted brass keychain with school flag embroidery' },
-      { name: 'Clocktower Embroidered Notebook', price: 1000, image: 'https://lh3.googleusercontent.com/d/1W8JT6nl26MFX1W1NTVGwgF_M2K6tBzlw', description: 'Carry the heritage of Mayo with every note you write.' },
-      { name: 'Pachranga Crochet Scarf', price: 2000, image: 'https://lh3.googleusercontent.com/d/1t5NNma7_9KzV3vOuO1Sva4aBkMLFuAMJ', description: 'A cozy blend of style and spirit, this vibrant handcrafted scarf celebrates heritage with every weave – inspired by our pachranga flag.' }
-    ];
+    // ----- PRODUCT DATA -----
+    const products = [
+      { name: 'Pachranga Crochet Coaster', price: 100, image: 'https://lh3.googleusercontent.com/d/1v_xdcmhkZ-tNns-ysH2ABVbveJjKSd9F', description: 'A handcrafted crochet design echoing the colors of our pachranga flag – where heritage meets artistry' },
+      { name: 'Pachranga Crochet Cup Cover', price: 300, image: 'https://lh3.googleusercontent.com/d/1HQandW1uvnH0LdiQtP3u1Ux4yLVcrJus', description: 'Celebrate school pride with every sip – handmade crochet mug cover in pachranga flag colors.' },
+      { name: 'Mayo Embroidered Pouches', price: 300, image: 'https://lh3.googleusercontent.com/d/16DVa9wsZMqKJszBmCidhaQrif8ULCuWh', description: 'Utility meets artistry – handcrafted pouch with signature Mayo embroidery.' },
+      { name: 'Mayo Sipper', price: 350, image: 'https://lh3.googleusercontent.com/d/10ytaBMizKfIZNAlWb3e7D26fDii8yXAy', description: 'Sip the Legacy – Celebrating 150 Years of Mayo, One Stitch at a Time' },
+      { name: 'Peacock Embroidered Bookmark', price: 500, image: 'https://lh3.googleusercontent.com/d/1R9w9BpyzS1m4PejOX08-feHTAD-r7jtN', description: 'Elegant brass bookmark with hand-embroidered peacock feather – a timeless keepsake of Mayo’s spirit.' },
+      { name: 'Peacock Embroidered Keychain', price: 650, image: 'https://lh3.googleusercontent.com/d/1LHAh3cd9eD_2U3R_ltrh7g0JVZQgrVRp', description: 'The timeless charm of a peacock feather, now at your fingertips' },
+      { name: 'Proud Mayoite Keychain', price: 650, image: 'https://lh3.googleusercontent.com/d/1TR7JrJ7m7hKDVXH5sJCP-RIdt21yNmt-', description: 'Pride on your keys.A timeless keepsake for every Mayoite.' },
+      { name: 'Pachranga Embroidered Keychain', price: 650, image: 'https://lh3.googleusercontent.com/d/1Uzs1EJNi2SQWBI8pSXcAe4-TKvs8Zhqq', description: 'Carry your pride everywhere – a handcrafted brass keychain with school flag embroidery' },
+      { name: 'Clocktower Embroidered Notebook', price: 1000, image: 'https://lh3.googleusercontent.com/d/1W8JT6nl26MFX1W1NTVGwgF_M2K6tBzlw', description: 'Carry the heritage of Mayo with every note you write.' },
+      { name: 'Pachranga Crochet Scarf', price: 2000, image: 'https://lh3.googleusercontent.com/d/1t5NNma7_9KzV3vOuO1Sva4aBkMLFuAMJ', description: 'A cozy blend of style and spirit, this vibrant handcrafted scarf celebrates heritage with every weave – inspired by our pachranga flag.' }
+    ];
 
-    // ----- CART STATE -----
-    let cart = [];
+    // ----- CART STATE -----
+    let cart = [];
 
-    // ----- DOM Elements -----
-    const checkoutForm = document.getElementById('checkout-form');
-    const payBtn = document.getElementById('pay-btn');
-    const payStatus = document.getElementById('pay-status');
-    const productGrid = document.getElementById('product-grid');
-    const cartModal = document.getElementById('cart-modal');
-    const cartItemsContainer = document.getElementById('cart-items');
-    const cartTotalElement = document.getElementById('cart-total');
-    const cartCountElement = document.getElementById('cart-count');
-    const checkoutSummaryElement = document.getElementById('checkout-summary');
-    const checkoutTotalElement = document.getElementById('checkout-total');
-    const checkoutBtn = document.getElementById('checkout-btn');
-    const paymentStatusModal = document.getElementById('payment-status-modal');
-    const paymentStatusTitle = document.getElementById('payment-status-title');
-    const paymentStatusMessage = document.getElementById('payment-status-message');
-    const mainContent = document.querySelector('main');
-    const allSections = document.querySelectorAll('section[id]');
+    // ----- DOM Elements -----
+    const checkoutForm = document.getElementById('checkout-form');
+    const payBtn = document.getElementById('pay-btn');
+    const payStatus = document.getElementById('pay-status');
+    const productGrid = document.getElementById('product-grid');
+    const cartModal = document.getElementById('cart-modal');
+    const cartItemsContainer = document.getElementById('cart-items');
+    const cartTotalElement = document.getElementById('cart-total');
+    const cartCountElement = document.getElementById('cart-count');
+    const checkoutSummaryElement = document.getElementById('checkout-summary');
+    const checkoutTotalElement = document.getElementById('checkout-total');
+    const checkoutBtn = document.getElementById('checkout-btn');
+    const paymentStatusModal = document.getElementById('payment-status-modal');
+    const paymentStatusTitle = document.getElementById('payment-status-title');
+    const paymentStatusMessage = document.getElementById('payment-status-message');
+    const mainContent = document.querySelector('main');
+    const allSections = document.querySelectorAll('section[id]');
 
-    // ----- Cart Functions -----
-    function addToCart(productName) {
-      const product = products.find(p => p.name === productName);
-      if (!product) return;
-      const existingItem = cart.find(item => item.name === productName);
-      if (existingItem) {
-        existingItem.quantity++;
-      } else {
-        cart.push({ ...product, quantity: 1 });
-      }
-      updateCartDisplay();
-    }
+    // ----- Cart Functions -----
+    function addToCart(productName) {
+      const product = products.find(p => p.name === productName);
+      if (!product) return;
+      const existingItem = cart.find(item => item.name === productName);
+      if (existingItem) {
+        existingItem.quantity++;
+      } else {
+        cart.push({ ...product, quantity: 1 });
+      }
+      updateCartDisplay();
+    }
 
-    function buyNow(productName) {
-      const product = products.find(p => p.name === productName);
-      if (!product) return;
-      cart = [{ ...product, quantity: 1 }];
-      showCheckout();
-    }
+    function buyNow(productName) {
+      const product = products.find(p => p.name === productName);
+      if (!product) return;
+      cart = [{ ...product, quantity: 1 }];
+      showCheckout();
+    }
 
-    function updateQuantity(productName, newQuantity) {
-      const item = cart.find(i => i.name === productName);
-      if (item) {
-        if (newQuantity > 0) {
-          item.quantity = newQuantity;
-        } else {
-          removeFromCart(productName);
-        }
-      }
-      updateCartDisplay();
-    }
-    
-    function removeFromCart(productName) {
-      cart = cart.filter(item => item.name !== productName);
-      updateCartDisplay();
-    }
+    function updateQuantity(productName, newQuantity) {
+      const item = cart.find(i => i.name === productName);
+      if (item) {
+        if (newQuantity > 0) {
+          item.quantity = newQuantity;
+        } else {
+          removeFromCart(productName);
+        }
+      }
+      updateCartDisplay();
+    }
+    
+    function removeFromCart(productName) {
+      cart = cart.filter(item => item.name !== productName);
+      updateCartDisplay();
+    }
 
-    function updateCartDisplay() {
-      cartItemsContainer.innerHTML = '';
-      let total = 0;
-      let itemCount = 0;
-      
-      if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '<p class="text-gray-500">Your cart is empty.</p>';
-        checkoutBtn.disabled = true;
-        checkoutBtn.classList.add('opacity-50', 'cursor-not-allowed');
-      } else {
-        checkoutBtn.disabled = false;
-        checkoutBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-        cart.forEach(item => {
-          total += item.price * item.quantity;
-          itemCount += item.quantity;
-          cartItemsContainer.innerHTML += `
-            <div class="cart-item">
-              <img src="${item.image}" alt="${item.name}">
-              <div class="cart-item-details">
-                <p class="font-bold">${item.name}</p>
-                <p class="text-sm text-gray-600">₹${item.price}</p>
-              </div>
-              <div class="cart-item-quantity">
-                <button class="quantity-btn" onclick="updateQuantity('${item.name}', ${item.quantity - 1})">-</button>
-                <span>${item.quantity}</span>
-                <button class="quantity-btn" onclick="updateQuantity('${item.name}', ${item.quantity + 1})">+</button>
-              </div>
-              <button onclick="removeFromCart('${item.name}')" class="text-red-500 hover:text-red-700">
-                <i class="fas fa-trash-alt"></i>
-              </button>
-            </div>
-          `;
-        });
-      }
-      
-      cartTotalElement.textContent = `₹${total}`;
-      if (itemCount > 0) {
-        cartCountElement.textContent = itemCount;
-        cartCountElement.classList.remove('hidden');
-      } else {
-        cartCountElement.classList.add('hidden');
-      }
-    }
+    function updateCartDisplay() {
+      cartItemsContainer.innerHTML = '';
+      let total = 0;
+      let itemCount = 0;
+      
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = '<p class="text-gray-500">Your cart is empty.</p>';
+        checkoutBtn.disabled = true;
+        checkoutBtn.classList.add('opacity-50', 'cursor-not-allowed');
+      } else {
+        checkoutBtn.disabled = false;
+        checkoutBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        cart.forEach(item => {
+          total += item.price * item.quantity;
+          itemCount += item.quantity;
+          cartItemsContainer.innerHTML += `
+            <div class="cart-item">
+              <img src="${item.image}" alt="${item.name}">
+              <div class="cart-item-details">
+                <p class="font-bold">${item.name}</p>
+                <p class="text-sm text-gray-600">₹${item.price}</p>
+              </div>
+              <div class="cart-item-quantity">
+                <button class="quantity-btn" onclick="updateQuantity('${item.name}', ${item.quantity - 1})">-</button>
+                <span>${item.quantity}</span>
+                <button class="quantity-btn" onclick="updateQuantity('${item.name}', ${item.quantity + 1})">+</button>
+              </div>
+              <button onclick="removeFromCart('${item.name}')" class="text-red-500 hover:text-red-700">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          `;
+        });
+      }
+      
+      cartTotalElement.textContent = `₹${total}`;
+      if (itemCount > 0) {
+        cartCountElement.textContent = itemCount;
+        cartCountElement.classList.remove('hidden');
+      } else {
+        cartCountElement.classList.add('hidden');
+      }
+    }
 
-    function showCart() { cartModal.style.display = 'flex'; }
-    function hideCart() { cartModal.style.display = 'none'; }
-    
-    // ----- Checkout Functions -----
-    function showCheckout() {
-      if (cart.length === 0) return;
-      
-      let subtotal = 0;
-      checkoutSummaryElement.innerHTML = '';
-      cart.forEach(item => {
-        subtotal += item.price * item.quantity;
-        checkoutSummaryElement.innerHTML += `
-          <div class="flex justify-between">
-            <span>${item.name} (x${item.quantity})</span>
-            <span>₹${item.price * item.quantity}</span>
-          </div>
-        `;
-      });
+    function showCart() { cartModal.style.display = 'flex'; }
+    function hideCart() { cartModal.style.display = 'none'; }
+    
+    // ----- Checkout Functions -----
+    function showCheckout() {
+      if (cart.length === 0) return;
+      
+      let subtotal = 0;
+      checkoutSummaryElement.innerHTML = '';
+      cart.forEach(item => {
+        subtotal += item.price * item.quantity;
+        checkoutSummaryElement.innerHTML += `
+          <div class="flex justify-between">
+            <span>${item.name} (x${item.quantity})</span>
+            <span>₹${item.price * item.quantity}</span>
+        </div>
+        `;
+      });
 
-      const shippingCost = subtotal < SHIPPING_THRESHOLD ? SHIPPING_FEE_BELOW : SHIPPING_FEE_ABOVE;
-      checkoutSummaryElement.innerHTML += `
-        <div class="flex justify-between text-sm text-gray-600 border-t mt-2 pt-2">
-          <span>Shipping Fee</span>
-          <span>₹${shippingCost}</span>
-        </div>
-      `;
+      const shippingCost = subtotal < SHIPPING_THRESHOLD ? SHIPPING_FEE_BELOW : SHIPPING_FEE_ABOVE;
+      checkoutSummaryElement.innerHTML += `
+        <div class="flex justify-between text-sm text-gray-600 border-t mt-2 pt-2">
+          <span>Shipping Fee</span>
+          <span>₹${shippingCost}</span>
+        </div>
+      `;
 
-      const total = subtotal + shippingCost;
-      checkoutTotalElement.textContent = `₹${total}`;
+      const total = subtotal + shippingCost;
+      checkoutTotalElement.textContent = `₹${total}`;
 
-      hideCart();
-      mainContent.style.display = 'none';
-      allSections.forEach(s => { if (s.id !== 'checkout-section') s.style.display = 'none'; });
-      const checkoutSection = document.getElementById('checkout-section');
-      checkoutSection.classList.remove('hidden');
-      checkoutSection.style.display = 'flex';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-    
-    function hideCheckout() {
-      const checkoutSection = document.getElementById('checkout-section');
-      checkoutSection.style.display = 'none';
-      checkoutSection.classList.add('hidden');
-      mainContent.style.display = 'block';
-      allSections.forEach(s => s.style.display = 'block');
-    }
-    
-    function openPaymentModal(title, message) {
-      paymentStatusTitle.textContent = title;
-      paymentStatusMessage.textContent = message;
-      paymentStatusModal.style.display = 'flex';
-    }
-    
-    function closePaymentModal() {
-      paymentStatusModal.style.display = 'none';
-      hideCheckout();
-      checkoutForm.reset();
-      cart = [];
-      updateCartDisplay();
-    }
-    
-    // ----- Make functions globally accessible -----
-    window.addToCart = addToCart;
-    window.updateQuantity = updateQuantity;
-    window.removeFromCart = removeFromCart;
-    window.buyNow = buyNow;
-    window.showCart = showCart;
-    window.hideCart = hideCart;
-    window.showCheckout = showCheckout;
-    window.hideCheckout = hideCheckout;
-    window.closePaymentModal = closePaymentModal;
-    
-    // ----- Page Initialization -----
-    document.addEventListener('DOMContentLoaded', () => {
-      updateCartDisplay();
-      productGrid.innerHTML = products.map(product => `
-        <div class="product-card bg-white p-6 rounded-xl shadow-md flex flex-col items-center text-center">
-          <img src="${product.image}" alt="${product.name}" class="w-full h-auto object-cover rounded-xl mb-4 aspect-square" />
-          <h4 class="text-xl font-semibold text-black">${product.name}</h4>
-          <p class="text-gray-600 mt-1">₹${product.price}</p>
-          <p class="text-gray-500 text-sm mt-2 flex-grow">${product.description}</p>
-          <div class="mt-4 flex gap-2 justify-center w-full">
-            <button class="action-button text-xs py-2 px-3 flex-1" onclick="addToCart('${product.name}')">Add to Cart</button>
-            <button class="bg-black text-white text-xs py-2 px-3 rounded-full font-bold hover:bg-gray-800 transition flex-1" onclick="buyNow('${product.name}')">Buy Now</button>
-          </div>
-        </div>
-      `).join('');
+      hideCart();
+      mainContent.style.display = 'none';
+      allSections.forEach(s => { if (s.id !== 'checkout-section') s.style.display = 'none'; });
+      const checkoutSection = document.getElementById('checkout-section');
+      checkoutSection.classList.remove('hidden');
+      checkoutSection.style.display = 'flex';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    function hideCheckout() {
+      const checkoutSection = document.getElementById('checkout-section');
+      checkoutSection.style.display = 'none';
+      checkoutSection.classList.add('hidden');
+      mainContent.style.display = 'block';
+      allSections.forEach(s => s.style.display = 'block');
+    }
+    
+    function openPaymentModal(title, message) {
+      paymentStatusTitle.textContent = title;
+      paymentStatusMessage.textContent = message;
+      paymentStatusModal.style.display = 'flex';
+    }
+    
+    function closePaymentModal() {
+      paymentStatusModal.style.display = 'none';
+      hideCheckout();
+      checkoutForm.reset();
+      cart = [];
+      updateCartDisplay();
+    }
+    
+    // ----- Make functions globally accessible -----
+    window.addToCart = addToCart;
+    window.updateQuantity = updateQuantity;
+    window.removeFromCart = removeFromCart;
+    window.buyNow = buyNow;
+    window.showCart = showCart;
+    window.hideCart = hideCart;
+    window.showCheckout = showCheckout;
+    window.hideCheckout = hideCheckout;
+    window.closePaymentModal = closePaymentModal;
+    
+    // ----- Page Initialization -----
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCartDisplay();
+      productGrid.innerHTML = products.map(product => `
+        <div class="product-card bg-white p-6 rounded-xl shadow-md flex flex-col items-center text-center">
+          <img src="${product.image}" alt="${product.name}" class="w-full h-auto object-cover rounded-xl mb-4 aspect-square" />
+          <h4 class="text-xl font-semibold text-black">${product.name}</h4>
+          <p class="text-gray-600 mt-1">₹${product.price}</p>
+          <p class="text-gray-500 text-sm mt-2 flex-grow">${product.description}</p>
+          <div class="mt-4 flex gap-2 justify-center w-full">
+            <button class="action-button text-xs py-2 px-3 flex-1" onclick="addToCart('${product.name}')">Add to Cart</button>
+            <button class="bg-black text-white text-xs py-2 px-3 rounded-full font-bold hover:bg-gray-800 transition flex-1" onclick="buyNow('${product.name}')">Buy Now</button>
+          </div>
+        </div>
+      `).join('');
 
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          const targetId = this.getAttribute('href');
-          if (document.getElementById('checkout-section').style.display === 'flex') {
-            hideCheckout();
-          }
-          const targetElement = document.querySelector(targetId);
-          if (targetElement) {
-            setTimeout(() => {
-              targetElement.scrollIntoView({ behavior: 'smooth' });
-            }, 50);
-          }
-        });
-      });
-      
-      const counters = document.querySelectorAll('.counter');
-      const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const counterElement = entry.target.querySelector('div');
-            const target = parseInt(counterElement.getAttribute('data-target'));
-            let count = 0;
-            const increment = Math.max(1, target / 200);
-            const updateCounter = () => {
-              if (count < target) {
-                count += increment;
-                const currentCount = Math.min(target, Math.ceil(count));
-                if (counterElement.id === 'value-generated-counter') {
-                  counterElement.textContent = '₹' + currentCount.toLocaleString('en-IN');
-                } else {
-                  counterElement.textContent = currentCount.toLocaleString('en-IN');
-                }
-                requestAnimationFrame(updateCounter);
-              } else {
-                if (counterElement.id === 'value-generated-counter') {
-                  counterElement.textContent = '₹' + target.toLocaleString('en-IN');
-                } else {
-                  counterElement.textContent = target.toLocaleString('en-IN');
-                }
-              }
-            };
-            updateCounter();
-            obs.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.5 });
-      counters.forEach(c => observer.observe(c));
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          if (document.getElementById('checkout-section').style.display === 'flex') {
+            hideCheckout();
+          }
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            setTimeout(() => {
+              targetElement.scrollIntoView({ behavior: 'smooth' });
+            }, 50);
+          }
+        });
+      });
+      
+      const counters = document.querySelectorAll('.counter');
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const counterElement = entry.target.querySelector('div');
+            const target = parseInt(counterElement.getAttribute('data-target'));
+            let count = 0;
+            const increment = Math.max(1, target / 200);
+            const updateCounter = () => {
+              if (count < target) {
+                count += increment;
+                const currentCount = Math.min(target, Math.ceil(count));
+                if (counterElement.id === 'value-generated-counter') {
+                  counterElement.textContent = '₹' + currentCount.toLocaleString('en-IN');
+                } else {
+                  counterElement.textContent = currentCount.toLocaleString('en-IN');
+                }
+                requestAnimationFrame(updateCounter);
+              } else {
+                if (counterElement.id === 'value-generated-counter') {
+                  counterElement.textContent = '₹' + target.toLocaleString('en-IN');
+                } else {
+                  counterElement.textContent = target.toLocaleString('en-IN');
+                }
+              }
+            };
+            updateCounter();
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      counters.forEach(c => observer.observe(c));
 
-      new Swiper('.hero-slider', {
-        loop: true,
-        autoplay: { delay: 3000, disableOnInteraction: false },
-        pagination: { el: '.swiper-pagination', clickable: true },
-        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-      });
-    });
+      new Swiper('.hero-slider', {
+        loop: true,
+        autoplay: { delay: 3000, disableOnInteraction: false },
+        pagination: { el: '.swiper-pagination', clickable: true },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+      });
+    });
 
-    // ----- Payment Flow -----
-    checkoutForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const address = document.getElementById('address').value.trim();
-      
-      const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-      const shippingFee = subtotal < SHIPPING_THRESHOLD ? SHIPPING_FEE_BELOW : SHIPPING_FEE_ABOVE;
-      const total = subtotal + shippingFee;
+    // ----- Payment Flow -----
+    checkoutForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const address = document.getElementById('address').value.trim();
+      
+      const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      const shippingFee = subtotal < SHIPPING_THRESHOLD ? SHIPPING_FEE_BELOW : SHIPPING_FEE_ABOVE;
+      const total = subtotal + shippingFee;
 
-      await startPayment({ amountINR: total, name, email, phone, address });
-    });
+      await startPayment({ amountINR: total, name, email, phone, address });
+    });
 
-    async function startPayment({ amountINR, name, email, phone, address }) {
-      try {
-        payBtn.disabled = true;
-        payBtn.classList.add('opacity-60', 'cursor-not-allowed');
-        payStatus.classList.remove('hidden');
+    async function startPayment({ amountINR, name, email, phone, address }) {
+      try {
+        payBtn.disabled = true;
+        payBtn.classList.add('opacity-60', 'cursor-not-allowed');
+        payStatus.classList.remove('hidden');
 
-        const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-        const shippingFee = subtotal < SHIPPING_THRESHOLD ? SHIPPING_FEE_BELOW : SHIPPING_FEE_ABOVE;
-        const total = subtotal + shippingFee;
+        const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        const shippingFee = subtotal < SHIPPING_THRESHOLD ? SHIPPING_FEE_BELOW : SHIPPING_FEE_ABOVE;
+        const total = subtotal + shippingFee;
 
-        const items = cart.map(item => ({
-          name: item.name,
-          qty: item.quantity,
-          unitPriceINR: item.price,
-          lineTotalINR: item.price * item.quantity
-        }));
+        const items = cart.map(item => ({
+          name: item.name,
+          qty: item.quantity,
+          unitPriceINR: item.price,
+          lineTotalINR: item.price * item.quantity
+        }));
 
-        const payload = {
-          amountINR: total,
-          email: email,
-          itemsJSON: JSON.stringify(items),
-          subtotalINR: subtotal,
-          shippingFeeINR: shippingFee,
-          totalINR: total,
-          customerName: name,
-          customerPhone: phone,
-          customerAddress: address
-        };
+        const payload = {
+          amountINR: total,
+          email: email,
+          itemsJSON: JSON.stringify(items),
+          subtotalINR: subtotal,
+          shippingFeeINR: shippingFee,
+          totalINR: total,
+          customerName: name,
+          customerPhone: phone,
+          customerAddress: address
+        };
 
-        const response = await fetch(FUNCTION_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
+        const response = await fetch(FUNCTION_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
 
-        if (!response.ok) {
-          const errText = await response.text();
-          throw new Error(errText || "Failed to create order");
-        }
+        if (!response.ok) {
+          const errText = await response.text();
+          throw new Error(errText || "Failed to create order");
+        }
 
-        const data = await response.json();
-        const order = data?.order;
-        if (!order?.id) throw new Error("Backend did not return a valid order.id");
+        const data = await response.json();
+        const order = data?.order;
+        if (!order?.id) throw new Error("Backend did not return a valid order.id");
 
-        const rzp = new Razorpay({
-          key: RAZORPAY_KEY,
-          amount: order.amount,
-          currency: order.currency || "INR",
-          name: "Crafting Better",
-          description: `Order for ${name}`,
-          order_id: order.id,
-          handler: function () {
-            openPaymentModal('Payment Successful!', 'Thank you for your order! We have received your payment and will be in touch shortly to confirm shipping details.');
-          },
-          prefill: { name, email, contact: phone },
-          notes: { address },
-          theme: { color: "#d4af37" }
-        });
+        const rzp = new Razorpay({
+          key: RAZORPAY_KEY,
+          amount: order.amount,
+          currency: order.currency || "INR",
+          name: "Crafting Better",
+          description: `Order for ${name}`,
+          order_id: order.id,
+          handler: function(response) {
+            openPaymentModal('Payment Successful!', 'Thank you for your order! We have received your payment and will be in touch shortly to confirm shipping details.');
+            cart = []; // Clears the cart
+            updateCartDisplay(); // Updates the UI to show an empty cart
+          },
+          prefill: { name, email, contact: phone },
+          notes: { address },
+          theme: { color: "#d4af37" }
+        });
 
-        rzp.on('payment.failed', function (resp) {
-          console.error("Razorpay failed:", resp);
-          openPaymentModal('Payment Failed', `Error: ${resp.error.description || 'Unknown error'}. Please try again.`);
-        });
+        rzp.on('payment.failed', function (resp) {
+          console.error("Razorpay failed:", resp);
+          openPaymentModal('Payment Failed', `Error: ${resp.error.description || 'Unknown error'}. Please try again.`);
+        });
 
-        rzp.open();
-      } catch (err) {
-        console.error("Payment init error:", err);
-        openPaymentModal('Error', err.message || 'Could not start payment. Please try again.');
-      } finally {
-        payBtn.disabled = false;
-        payBtn.classList.remove('opacity-60', 'cursor-not-allowed');
-        payStatus.classList.add('hidden');
-      }
-    }
-  </script>
+        rzp.open();
+      } catch (err) {
+        console.error("Payment init error:", err);
+        openPaymentModal('Error', err.message || 'Could not start payment. Please try again.');
+      } finally {
+        payBtn.disabled = false;
+        payBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+        payStatus.classList.add('hidden');
+      }
+    }
+  </script>
 </body>
 </html>
