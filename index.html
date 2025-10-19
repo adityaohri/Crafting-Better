@@ -30,7 +30,6 @@
     .animate-bounce-chat { animation: bounce-chat 2.5s infinite ease-in-out; }
     @keyframes bounce-chat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
     #cart-modal { justify-content: flex-end; }
-    #cart-content { max-width: 400px; width:100%; height:100%; border-radius:0; text-align:left; display:flex; flex-direction:column; }
     .cart-item { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
     .cart-item img { width: 60px; height: 60px; object-cover; border-radius: 8px; }
     .cart-item-details { flex-grow: 1; }
@@ -250,7 +249,7 @@
     const SHIPPING_FEE_BELOW = 70;
     const SHIPPING_FEE_ABOVE = 90;
 
-    // ----- PRODUCT DATA (Original) -----
+    // ----- PRODUCT DATA -----
     const products = [
       { name: 'Pachranga Crochet Coaster', price: 100, image: 'https://lh3.googleusercontent.com/d/1v_xdcmhkZ-tNns-ysH2ABVbveJjKSd9F', description: 'A handcrafted crochet design echoing the colors of our pachranga flag – where heritage meets artistry' },
       { name: 'Pachranga Crochet Cup Cover', price: 300, image: 'https://lh3.googleusercontent.com/d/1HQandW1uvnH0LdiQtP3u1Ux4yLVcrJus', description: 'Celebrate school pride with every sip – handmade crochet mug cover in pachranga flag colors.' },
