@@ -121,7 +121,7 @@
           <p>Crafting Better is a social initiative by Kripa and Aditya Ohri, students of Mayo, that uses art as a medium to promote mental health and self-expression. Inspired by their mother’s love for art, Kripa combined her passion for psychology with creativity, while Aditya supported her in shaping the platform into a space for empowerment and change.</p>
           <p>To strengthen her expertise and bring more value to the initiative, Kripa attended specialized programs at Ashoka University, IIT Delhi, IIT Bombay, and NID Ahmedabad, where she gained deeper insights into the connection between art and mental health. These learnings became the foundation of Crafting Better’s approach, blending creativity with psychological awareness.</p>
           <p>Building on this vision, Crafting Better conducts creative workshops and develops handcrafted products that nurture creativity and empower individuals, especially rural girls, by fostering confidence, independence, and self-expression. As Mayo celebrates 150 years, the initiative proudly presents its first exhibition, showcasing how art and psychology unite to create meaningful change.</p>
-      </div>
+        </div>
       </div>
     </section>
 
@@ -333,7 +333,6 @@
     const paymentStatusMessage = document.getElementById('payment-status-message');
     const exhibitionContentDiv = document.getElementById('exhibition-content');
     const allSections = document.querySelectorAll('section[id]');
-    // ✅ FIX: define mainContent so showCheckout/hideCheckout work
     const mainContent = document.querySelector('main');
 
     // ----- Cart Functions -----
@@ -454,7 +453,6 @@
       checkoutTotalElement.textContent = `₹${total}`;
 
       hideCart();
-      // ✅ these lines now work because mainContent is defined
       mainContent.style.display = 'none';
       allSections.forEach(s => { if (s.id !== 'checkout-section') s.style.display = 'none'; });
       const checkoutSection = document.getElementById('checkout-section');
