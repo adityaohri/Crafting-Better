@@ -30,6 +30,7 @@
     .animate-bounce-chat { animation: bounce-chat 2.5s infinite ease-in-out; }
     @keyframes bounce-chat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
     #cart-modal { justify-content: flex-end; }
+    #cart-content { max-width: 400px; width:100%; height:100%; border-radius:0; text-align:left; display:flex; flex-direction:column; }
     .cart-item { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
     .cart-item img { width: 60px; height: 60px; object-cover; border-radius: 8px; }
     .cart-item-details { flex-grow: 1; }
@@ -40,30 +41,6 @@
     .swiper-button-next, .swiper-button-prev { color: white !important; background-color: rgba(0, 0, 0, 0.3); border-radius: 50%; width: 44px !important; height: 44px !important; }
     .swiper-button-next::after, .swiper-button-prev::after { font-size: 18px !important; font-weight: bold; }
     .swiper-pagination-bullet-active { background: #d4af37 !important; }
-    .product-image-container { position: relative; overflow: hidden; }
-    .tab-button {
-        padding: 0.75rem 0.5rem; 
-        font-weight: 600;
-        border-radius: 9999px;
-        transition: background-color 0.3s;
-        border: 1px solid transparent;
-        text-align: center;
-        white-space: normal; 
-        line-height: 1.2;
-    }
-    .tab-button:hover {
-        background-color: #f0f0f0;
-    }
-    .tab-button.active {
-        background-color: #d4af37;
-        color: white;
-    }
-    @media (max-width: 640px) {
-        .tab-button {
-            font-size: 0.8rem;
-            padding: 0.5rem 0.25rem;
-        }
-    }
   </style>
 </head>
 
@@ -127,26 +104,17 @@
 
     <section id="exhibition" class="container mx-auto px-4 py-12">
       <div class="bg-white rounded-2xl p-8 shadow text-center">
-        <h3 class="text-3xl font-helvetica mb-8">Our Exhibition History</h3>
-        
-        <div class="grid grid-cols-3 gap-3 mx-auto max-w-4xl mb-8" id="exhibition-tabs">
-            <button class="tab-button active" onclick="loadExhibition('ajmer', this)">Celebration Dinner, Ajmer Chapter</button>
-            <button class="tab-button" onclick="loadExhibition('jaipur', this)">Celebration Dinner, Jaipur Chapter</button>
-            <button class="tab-button" onclick="loadExhibition('mayogirls', this)">Mayo Girls Prize Giving</button>
-        </div>
-
-        <div id="exhibition-content">
-          <p class="text-gray-700 max-w-3xl mx-auto mb-8">We exhibited our products for the first time during the 150th Celebration Dinner of Mayo College on 30th August 2025 at Pratap Mahal, Pushkar.</p>
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1H3ZJK9kVVwGilKSMJmmyeFfu_P14O_LP" alt="Exhibition Image 6" class="w-full h-full object-cover object-top"></div>
-            <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1i5ZVKPZU4awbCw0cvWd0IRhHv28HF9XZ" alt="Exhibition Image" class="w-full h-full object-cover object-center"></div>
-            <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1uhIgnDV1EXyuwBPF7W1eRRtIgPySWYz0" alt="Exhibition Image" class="w-full h-full object-cover object-center"></div>
-            <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1DyRv_g62HmKzKxf2TjnUW34Auev6ZRzZ" alt="Exhibition Image" class="w-full h-full object-cover object-center"></div>
-            <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1zymfoTCrsE_t-2tj6OkzdyFvjrir2QoT" alt="Exhibition Image 3" class="w-full h-full object-cover object-center"></div>
-            <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1rH0lgvh8gRbTZjjvaNs4im0EG4AypoG4" alt="Exhibition Image" class="w-full h-full object-cover object-center"></div>
-            <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1vNHMlsQP53u08vzQXpYmdzVs5omDphB2" alt="Exhibition Image" class="w-full h-full object-cover object-center"></div>
-            <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/19eISRCAf_aBoxw40OU2FDgUmTdsAINmb" alt="Exhibition Image" class="w-full h-full object-cover object-center"></div>
-          </div>
+        <h3 class="text-3xl font-helvetica mb-4">Our First Exhibition</h3>
+        <p class="text-gray-700 max-w-3xl mx-auto mb-8">We exhibited our products for the first time during the 150th Celebration Dinner of Mayo College on 30th August 2025 at Pratap Mahal, Pushkar.</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1H3ZJK9kVVwGilKSMJmmyeFfu_P14O_LP" alt="Exhibition Image 6" class="w-full h-full object-cover object-top"></div>
+          <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1i5ZVKPZU4awbCw0cvWd0IRhHv28HF9XZ" alt="Exhibition Image" class="w-full h-full object-cover object-center"></div>
+          <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1uhIgnDV1EXyuwBPF7W1eRRtIgPySWYz0" alt="Exhibition Image" class="w-full h-full object-cover object-center"></div>
+          <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1DyRv_g62HmKzKxf2TjnUW34Auev6ZRzZ" alt="Exhibition Image" class="w-full h-full object-cover object-center"></div>
+          <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1zymfoTCrsE_t-2tj6OkzdyFvjrir2QoT" alt="Exhibition Image 3" class="w-full h-full object-cover object-center"></div>
+          <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1rH0lgvh8gRbTZjjvaNs4im0EG4AypoG4" alt="Exhibition Image" class="w-full h-full object-cover object-center"></div>
+          <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/1vNHMlsQP53u08vzQXpYmdzVs5omDphB2" alt="Exhibition Image" class="w-full h-full object-cover object-center"></div>
+          <div class="aspect-square rounded-lg overflow-hidden shadow-lg"><img src="https://lh3.googleusercontent.com/d/19eISRCAf_aBoxw40OU2FDgUmTdsAINmb" alt="Exhibition Image" class="w-full h-full object-cover object-center"></div>
         </div>
       </div>
     </section>
@@ -169,7 +137,6 @@
         <div class="flex flex-wrap items-center justify-center gap-8 md:gap-16">
           <img src="https://lh3.googleusercontent.com/d/1ez_BGjm4w8DkxskUFncWMuniTYGciG5f" alt="Mayo College Girls School Logo" class="h-24 md:h-32 object-contain" />
           <img src="https://lh3.googleusercontent.com/d/1nzqC8G7tCdZwwBAZ2318eRnM79a7kjhD" alt="Crafting Better Partner Logo" class="h-24 md:h-32 object-contain" />
-          <img src="https://lh3.googleusercontent.com/d/1x6Cu02rj3RsJ2XT1uevHFxva3hBntcXj" alt="Women Wings Club Logo" class="h-24 md:h-32 object-contain" />
         </div>
       </div>
     </section>
@@ -189,11 +156,13 @@
     <div class="container mx-auto flex flex-col md:flex-row items-start justify-center p-8 rounded-xl shadow-lg bg-gray-50 max-w-4xl">
       <div class="md:w-1/2 p-4">
         <h3 class="text-2xl font-semibold text-black mb-4">Order Summary</h3>
+        <div class="mb-4 bg-amber-100 p-4 rounded-lg border border-amber-300 text-amber-800 text-sm">
+          <p><i class="fas fa-shipping-fast mr-2"></i>Shipping: <strong>₹70</strong> for orders below ₹1000, <strong>₹90</strong> for orders ₹1000 and above.</p>
+        </div>
         <div id="checkout-summary" class="space-y-2 mb-4"></div>
         <div class="text-xl font-bold text-right border-t pt-2">
           Total: <span id="checkout-total"></span>
         </div>
-        <p class="text-sm text-gray-700 mt-4 text-center">In case of a bulk order, kindly reach out on <a href="https://wa.me/919872012508" target="_blank" class="text-blue-600 hover:underline">WhatsApp</a>.</p>
         <button onclick="hideCheckout()" class="mt-6 bg-gray-400 text-white px-6 py-2 rounded-full text-lg font-bold hover:bg-gray-500 transition">Back to Products</button>
       </div>
       <div class="md:w-1/2 p-4 w-full">
@@ -245,74 +214,23 @@
     // https://us-central1-crafting-better.cloudfunctions.net/razorpayWebhookV2
     const RAZORPAY_KEY = "rzp_live_RDeYPruzKms6fI";
 
-    // SHIPPING CONSTANTS 
     const SHIPPING_THRESHOLD = 1000;
     const SHIPPING_FEE_BELOW = 70;
     const SHIPPING_FEE_ABOVE = 90;
 
-    // ----- PRODUCT DATA (Final Combined List) -----
+    // ----- PRODUCT DATA -----
     const products = [
       { name: 'Pachranga Crochet Coaster', price: 100, image: 'https://lh3.googleusercontent.com/d/1v_xdcmhkZ-tNns-ysH2ABVbveJjKSd9F', description: 'A handcrafted crochet design echoing the colors of our pachranga flag – where heritage meets artistry' },
-      { name: 'Mayo Utility Cross Stitch Pouch', price: 200, image: 'https://lh3.googleusercontent.com/d/15bQIui8_dYgvSbmNGkd-cJAFMe3HUz-V', description: 'Size 9.5 by 7.5 inches Reviving age-old art, one cross-stitch at a time' },
-      { name: 'Mayo Embroidered Pouches', price: 200, image: 'https://lh3.googleusercontent.com/d/16DVa9wsZMqKJszBmCidhaQrif8ULCuWh', description: 'Utility meets artistry – handcrafted pouch with signature Mayo embroidery.' }, 
       { name: 'Pachranga Crochet Cup Cover', price: 300, image: 'https://lh3.googleusercontent.com/d/1HQandW1uvnH0LdiQtP3u1Ux4yLVcrJus', description: 'Celebrate school pride with every sip – handmade crochet mug cover in pachranga flag colors.' },
-      { name: 'Mayo Sipper', price: 350, image: 'https://lh3.googleusercontent.com/d/10ytaBMizKfIZNAlWb3e7D26fDii8yXAy', description: 'Sip the Legacy – Celebrating 150 Years of Mayo, One Stitch at a Time', soldOut: true },
+      { name: 'Mayo Embroidered Pouches', price: 300, image: 'https://lh3.googleusercontent.com/d/16DVa9wsZMqKJszBmCidhaQrif8ULCuWh', description: 'Utility meets artistry – handcrafted pouch with signature Mayo embroidery.' },
+      { name: 'Mayo Sipper', price: 350, image: 'https://lh3.googleusercontent.com/d/10ytaBMizKfIZNAlWb3e7D26fDii8yXAy', description: 'Sip the Legacy – Celebrating 150 Years of Mayo, One Stitch at a Time' },
       { name: 'Peacock Embroidered Bookmark', price: 500, image: 'https://lh3.googleusercontent.com/d/1R9w9BpyzS1m4PejOX08-feHTAD-r7jtN', description: 'Elegant brass bookmark with hand-embroidered peacock feather – a timeless keepsake of Mayo’s spirit.' },
       { name: 'Peacock Embroidered Keychain', price: 650, image: 'https://lh3.googleusercontent.com/d/1LHAh3cd9eD_2U3R_ltrh7g0JVZQgrVRp', description: 'The timeless charm of a peacock feather, now at your fingertips' },
       { name: 'Proud Mayoite Keychain', price: 650, image: 'https://lh3.googleusercontent.com/d/1TR7JrJ7m7hKDVXH5sJCP-RIdt21yNmt-', description: 'Pride on your keys.A timeless keepsake for every Mayoite.' },
       { name: 'Pachranga Embroidered Keychain', price: 650, image: 'https://lh3.googleusercontent.com/d/1Uzs1EJNi2SQWBI8pSXcAe4-TKvs8Zhqq', description: 'Carry your pride everywhere – a handcrafted brass keychain with school flag embroidery' },
-      { name: 'Mayo Hand-Crossstitched T-Shirt', price: 800, image: 'https://lh3.googleusercontent.com/d/10FzNIwAGPHAOppfIX8KFLwXQqj1LEA0p', description: 'A perfect fusion of heritage and style, “MAYO” beautifully hand cross-stitched on the back.' },
-      { name: 'Pachranga Bottle Cover and Bottle', price: 800, image: 'https://lh3.googleusercontent.com/d/1ADXuImNWwUq_p8IPAd68U6OHUOIKEPuy', description: 'Handcrafted with love, this Pachranga bottle cover carries the colors of heritage and the warmth of handmade' },
       { name: 'Clocktower Embroidered Notebook', price: 1000, image: 'https://lh3.googleusercontent.com/d/1W8JT6nl26MFX1W1NTVGwgF_M2K6tBzlw', description: 'Carry the heritage of Mayo with every note you write.' },
-      { name: 'Pachranga Beanie', price: 1050, image: 'https://lh3.googleusercontent.com/d/1opPGXZ4j-Sf0zh9IJoQLlm3XiRBp3mf8', description: 'Hand-knitted with love, this Pachranga Beanie celebrates the iconic five colors of the Mayo flag.' },
-      { 
-        name: 'Pachranga Scarf', 
-        price: 1450, 
-        image: 'https://lh3.googleusercontent.com/d/1iTXNl0ux8ZEsHgBEi5-87lWh53g6y-MU',
-        secondaryImage: 'https://lh3.googleusercontent.com/d/1btNITsHoBJpJ7aMix1xhfR0TZ8bwn-Fh', 
-        description: 'A celebration of colour, comfort, and craftsmanship - this hand-knitted muffler is soft, warm, and the perfect winter essential' 
-      },
-      { name: 'Pachranga Crochet Muffler', price: 2000, image: 'https://lh3.googleusercontent.com/d/1t5NNma7_9KzV3vOuO1Sva4aBkMLFuAMJ', description: 'A cozy blend of style and spirit, this vibrant handcrafted scarf celebrates heritage with every weave – inspired by our pachranga flag.' },
-      { name: 'Mayo Heritage Diary', price: 4000, image: 'https://lh3.googleusercontent.com/d/1l8ykU3RN5pAGTaUzrRUt6pCqYsME3aqS', description: 'A beautifully handcrafted diary featuring the iconic hand-embroidered peacock, the proud symbol of Mayo College' }
+      { name: 'Pachranga Crochet Scarf', price: 2000, image: 'https://lh3.googleusercontent.com/d/1t5NNma7_9KzV3vOuO1Sva4aBkMLFuAMJ', description: 'A cozy blend of style and spirit, this vibrant handcrafted scarf celebrates heritage with every weave – inspired by our pachranga flag.' }
     ];
-
-    // Exhibition data structure (Updated)
-    const exhibitionData = {
-        ajmer: {
-            description: "We exhibited our products for the first time during the 150th Celebration Dinner of Mayo College on 30th August 2025 at Pratap Mahal, Pushkar.",
-            images: [
-                "https://lh3.googleusercontent.com/d/1H3ZJK9kVVwGilKSMJmmyeFfu_P14O_LP",
-                "https://lh3.googleusercontent.com/d/1i5ZVKPZU4awbCw0cvWd0IRhHv28HF9XZ",
-                "https://lh3.googleusercontent.com/d/1uhIgnDV1EXyuwBPF7W1eRRtIgPySWYz0",
-                "https://lh3.googleusercontent.com/d/1DyRv_g62HmKzKxf2TjnUW34Auev6ZRzZ",
-                "https://lh3.googleusercontent.com/d/1zymfoTCrsE_t-2tj6OkzdyFvjrir2QoT",
-                "https://lh3.googleusercontent.com/d/1rH0lgvh8gRbTZjjvaNs4im0EG4AypoG4",
-                "https://lh3.googleusercontent.com/d/1vNHMlsQP53u08vzQXpYmdzVs5omDphB2",
-                "https://lh3.googleusercontent.com/d/19eISRCAf_aBoxw40OU2FDgUmTdsAINmb"
-            ]
-        },
-        jaipur: {
-            description: "Our exhibited the full range at the 150th Celebration Dinner of Mayo College on 12th October 2025 at the Hotel Narain Niwas Palace, Jaipur.",
-            images: [
-                "https://lh3.googleusercontent.com/d/1UBVvIo3XIuHhewfBPBcSxv0Nqs30eCBu",
-                "https://lh3.googleusercontent.com/d/1gF0WS7Q8B4yhBBfcXBHlN_zYmPSt2obA",
-                "https://lh3.googleusercontent.com/d/1vNQEFhVMz1pjNBT_1lLfpMeieJ6A8UeN",
-                "https://lh3.googleusercontent.com/d/1P2hlIpoQsPfiHoGxU5B1XQvsAhjwuroh",
-                "https://lh3.googleusercontent.com/d/1Z8uDxwUEXxlerfC95Pm69aydKlmb992s",
-                "https://lh3.googleusercontent.com/d/1mE5uv2-upjf6qk4OzHH4-2JyBUiY9Ufj",
-                "https://lh3.googleusercontent.com/d/1NJAmG5ktPGd1mhspF3vg5JGZaAyoWweY",
-                "https://lh3.googleusercontent.com/d/1LPaKTdhPMfBwp3M7jKDnYbQH2DPFnwnq"
-            ]
-        },
-        mayogirls: {
-            description: "Exhibition held at Mayo Girls Prize Giving. This was a special showcase focused on creative art and mental wellness for the students.",
-            images: [
-                "https://placehold.co/400x400/f39c12/000000?text=Mayo+PG+Image+A",
-                "https://placehold.co/400x400/f1c40f/000000?text=Mayo+PG+Image+B"
-            ]
-        }
-    };
-
 
     // ----- CART STATE -----
     let cart = [];
@@ -332,13 +250,13 @@
     const paymentStatusModal = document.getElementById('payment-status-modal');
     const paymentStatusTitle = document.getElementById('payment-status-title');
     const paymentStatusMessage = document.getElementById('payment-status-message');
-    const exhibitionContentDiv = document.getElementById('exhibition-content');
+    const mainContent = document.querySelector('main');
     const allSections = document.querySelectorAll('section[id]');
 
     // ----- Cart Functions -----
     function addToCart(productName) {
       const product = products.find(p => p.name === productName);
-      if (!product || product.soldOut) return;
+      if (!product) return;
       const existingItem = cart.find(item => item.name === productName);
       if (existingItem) {
         existingItem.quantity++;
@@ -350,11 +268,8 @@
 
     function buyNow(productName) {
       const product = products.find(p => p.name === productName);
-      if (!product || product.soldOut) return;
-      
-      // Clear cart and add only the current item
+      if (!product) return;
       cart = [{ ...product, quantity: 1 }];
-      
       showCheckout();
     }
 
@@ -426,13 +341,10 @@
     function showCheckout() {
       if (cart.length === 0) return;
       
-      let subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-      
-      // SHIPPING LOGIC
-      const shippingCost = subtotal < SHIPPING_THRESHOLD ? SHIPPING_FEE_BELOW : SHIPPING_FEE_ABOVE; 
-      
+      let subtotal = 0;
       checkoutSummaryElement.innerHTML = '';
       cart.forEach(item => {
+        subtotal += item.price * item.quantity;
         checkoutSummaryElement.innerHTML += `
           <div class="flex justify-between">
             <span>${item.name} (x${item.quantity})</span>
@@ -440,8 +352,8 @@
           </div>
         `;
       });
-      
-      // Shipping fee line is shown in summary
+
+      const shippingCost = subtotal < SHIPPING_THRESHOLD ? SHIPPING_FEE_BELOW : SHIPPING_FEE_ABOVE;
       checkoutSummaryElement.innerHTML += `
         <div class="flex justify-between text-sm text-gray-600 border-t mt-2 pt-2">
           <span>Shipping Fee</span>
@@ -465,14 +377,8 @@
       const checkoutSection = document.getElementById('checkout-section');
       checkoutSection.style.display = 'none';
       checkoutSection.classList.add('hidden');
-      
-      // FIX: Restore the display of the main content and all relevant sections
       mainContent.style.display = 'block';
-      allSections.forEach(s => {
-          if (s.id !== 'checkout-section' && s.id !== 'cart-modal' && s.id !== 'payment-status-modal') {
-              s.style.display = 'block';
-          }
-      });
+      allSections.forEach(s => s.style.display = 'block');
     }
     
     function openPaymentModal(title, message) {
@@ -489,36 +395,6 @@
       updateCartDisplay();
     }
     
-    // ----- Exhibition Logic (New) -----
-    function loadExhibition(chapterKey, clickedButton) {
-        const chapter = exhibitionData[chapterKey];
-        if (!chapter) return;
-
-        // Update active tab styles
-        document.querySelectorAll('#exhibition-tabs .tab-button').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        if (clickedButton) {
-            clickedButton.classList.add('active');
-        }
-
-        // Generate image HTML
-        const imageHtml = chapter.images.map(url => `
-            <div class="aspect-square rounded-lg overflow-hidden shadow-lg">
-                <img src="${url}" alt="Exhibition Image" class="w-full h-full object-cover object-center">
-            </div>
-        `).join('');
-
-        // Update content
-        exhibitionContentDiv.innerHTML = `
-            <p class="text-gray-700 max-w-3xl mx-auto mb-8">${chapter.description}</p>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                ${imageHtml}
-            </div>
-        `;
-    }
-    window.loadExhibition = loadExhibition;
-
     // ----- Make functions globally accessible -----
     window.addToCart = addToCart;
     window.updateQuantity = updateQuantity;
@@ -530,89 +406,22 @@
     window.hideCheckout = hideCheckout;
     window.closePaymentModal = closePaymentModal;
     
-    // ----- Product Rendering Function (Updated) -----
-    function renderProduct(product) {
-      let imageContent;
-      let hasSlider = product.secondaryImage;
-      
-      if (hasSlider) {
-        // Render a Swiper slider for products with a secondary image
-        const sliderId = `swiper-${product.name.replace(/\s/g, '-')}`;
-        imageContent = `
-          <div class="swiper ${sliderId} rounded-xl shadow overflow-hidden w-full h-full">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide"><img class="w-full h-full object-cover" src="${product.image}" alt="${product.name} Image 1" /></div>
-              <div class="swiper-slide"><img class="w-full h-full object-cover" src="${product.secondaryImage}" alt="${product.name} Image 2" /></div>
-            </div>
-            <div class="swiper-pagination"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
-          </div>
-        `;
-      } else {
-        // Render a single image
-        imageContent = `<img src="${product.image}" alt="${product.name}" class="w-full h-auto object-cover rounded-xl mb-4 aspect-square" />`;
-      }
-
-      return `
-        <div class="product-card bg-white p-6 rounded-xl shadow-md flex flex-col items-center text-center">
-          <div class="product-image-container w-full aspect-square mb-4 rounded-xl shadow overflow-hidden">
-            ${imageContent}
-          </div>
-          <h4 class="text-xl font-semibold text-black">${product.name} ${product.soldOut ? '<span class="text-sm text-red-500 font-normal">(Sold Out)</span>' : ''}</h4>
-          <p class="text-gray-600 mt-1">${product.soldOut ? 'Sold Out' : `₹${product.price}`}</p>
-          <p class="text-gray-500 text-sm mt-2 flex-grow">${product.description}</p>
-          <div class="mt-4 flex gap-2 justify-center w-full">
-            <button class="action-button text-xs py-2 px-3 flex-1 ${product.soldOut ? 'bg-gray-400 cursor-not-allowed hover:bg-gray-400' : ''}" onclick="addToCart('${product.name}')" ${product.soldOut ? 'disabled' : ''}>Add to Cart</button>
-            <button class="bg-black text-white text-xs py-2 px-3 rounded-full font-bold hover:bg-gray-800 transition flex-1 ${product.soldOut ? 'bg-gray-400 cursor-not-allowed hover:bg-gray-400' : ''}" onclick="buyNow('${product.name}')" ${product.soldOut ? 'disabled' : ''}>Buy Now</button>
-          </div>
-        </div>
-      `;
-    }
-    window.renderProduct = renderProduct; 
-
     // ----- Page Initialization -----
     document.addEventListener('DOMContentLoaded', () => {
       updateCartDisplay();
-      
-      // Load default exhibition chapter on page load
-      loadExhibition('ajmer', document.querySelector('#exhibition-tabs .tab-button:first-child'));
+      productGrid.innerHTML = products.map(product => `
+        <div class="product-card bg-white p-6 rounded-xl shadow-md flex flex-col items-center text-center">
+          <img src="${product.image}" alt="${product.name}" class="w-full h-auto object-cover rounded-xl mb-4 aspect-square" />
+          <h4 class="text-xl font-semibold text-black">${product.name}</h4>
+          <p class="text-gray-600 mt-1">₹${product.price}</p>
+          <p class="text-gray-500 text-sm mt-2 flex-grow">${product.description}</p>
+          <div class="mt-4 flex gap-2 justify-center w-full">
+            <button class="action-button text-xs py-2 px-3 flex-1" onclick="addToCart('${product.name}')">Add to Cart</button>
+            <button class="bg-black text-white text-xs py-2 px-3 rounded-full font-bold hover:bg-gray-800 transition flex-1" onclick="buyNow('${product.name}')">Buy Now</button>
+          </div>
+        </div>
+      `).join('');
 
-      // Render products using the new function
-      productGrid.innerHTML = products.map(renderProduct).join('');
-
-      // Initialize Swiper for the hero slider
-      new Swiper('.hero-slider', {
-        loop: true,
-        autoplay: { delay: 3000, disableOnInteraction: false },
-        pagination: { el: '.swiper-pagination', clickable: true },
-        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-      });
-
-      // Initialize Swiper for any product sliders
-      products.filter(p => p.secondaryImage).forEach(product => {
-        const sliderClass = `.swiper-${product.name.replace(/\s/g, '-')}`;
-        new Swiper(sliderClass, {
-          loop: true,
-          pagination: { el: `${sliderClass} .swiper-pagination`, clickable: true },
-          navigation: { nextEl: `${sliderClass} .swiper-button-next`, prevEl: `${sliderClass} .swiper-button-prev` },
-          // Keep navigation buttons white on black background, adjusted from global style
-          on: {
-            init: function () {
-              const container = this.el;
-              container.querySelectorAll('.swiper-button-prev, .swiper-button-next').forEach(btn => {
-                btn.style.color = 'white';
-                btn.style.backgroundColor = 'rgba(0, 0, 0, 0.3)';
-                btn.style.borderRadius = '50%';
-                btn.style.width = '36px';
-                btn.style.height = '36px';
-              });
-            },
-          }
-        });
-      });
-
-      // Smooth scrolling logic
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
           e.preventDefault();
@@ -629,7 +438,6 @@
         });
       });
       
-      // Counter animation logic
       const counters = document.querySelectorAll('.counter');
       const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
@@ -662,6 +470,13 @@
         });
       }, { threshold: 0.5 });
       counters.forEach(c => observer.observe(c));
+
+      new Swiper('.hero-slider', {
+        loop: true,
+        autoplay: { delay: 3000, disableOnInteraction: false },
+        pagination: { el: '.swiper-pagination', clickable: true },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+      });
     });
 
     // ----- Payment Flow -----
@@ -673,7 +488,6 @@
       const address = document.getElementById('address').value.trim();
       
       const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-      // SHIPPING LOGIC
       const shippingFee = subtotal < SHIPPING_THRESHOLD ? SHIPPING_FEE_BELOW : SHIPPING_FEE_ABOVE;
       const total = subtotal + shippingFee;
 
@@ -687,7 +501,6 @@
         payStatus.classList.remove('hidden');
 
         const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-        // SHIPPING LOGIC
         const shippingFee = subtotal < SHIPPING_THRESHOLD ? SHIPPING_FEE_BELOW : SHIPPING_FEE_ABOVE;
         const total = subtotal + shippingFee;
 
