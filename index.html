@@ -156,8 +156,8 @@
         <h3 class="text-3xl font-helvetica mb-8">Our Impact</h3>
         <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16">
           <div class="counter"><div class="text-5xl font-semibold font-helvetica text-black" data-target="21">0</div><p class="text-black font-helvetica mt-2">Individual Empowered</p></div>
-          <div class="counter"><div class="text-5xl font-semibold font-helvetica text-black" data-target="52">0</div><p class="text-black font-helvetica mt-2">Products Sold</p></div>
-          <div class="counter"><div class="text-5xl font-semibold font-helvetica text-black" data-target="38113" id="value-generated-counter">0</div><p class="text-black font-helvetica mt-2">Value Generated</p></div>
+          <div class="counter"><div class="text-5xl font-semibold font-helvetica text-black" data-target="81">0</div><p class="text-black font-helvetica mt-2">Products Sold</p></div>
+          <div class="counter"><div class="text-5xl font-semibold font-helvetica text-black" data-target="95500" id="value-generated-counter">0</div><p class="text-black font-helvetica mt-2">Value Generated</p></div>
         </div>
         <p class="text-sm text-gray-600 mt-6">We have started selling a month back and still have a long way to go...</p>
       </div>
@@ -170,6 +170,7 @@
           <img src="https://lh3.googleusercontent.com/d/1ez_BGjm4w8DkxskUFncWMuniTYGciG5f" alt="Mayo College Girls School Logo" class="h-24 md:h-32 object-contain" />
           <img src="https://lh3.googleusercontent.com/d/1nzqC8G7tCdZwwBAZ2318eRnM79a7kjhD" alt="Crafting Better Partner Logo" class="h-24 md:h-32 object-contain" />
           <img src="https://lh3.googleusercontent.com/d/1x6Cu02rj3RsJ2XT1uevHFxva3hBntcXj" alt="Women Wings Club Logo" class="h-24 md:h-32 object-contain" />
+          <img src="https://lh3.googleusercontent.com/d/1qBd-ScDsVgaAiKi-VYJmTtUY9Ppgkn82" alt="New Partner Logo" class="h-24 md:h-32 object-contain" />
         </div>
       </div>
     </section>
@@ -239,17 +240,14 @@
 
   <script>
     // ====== CONFIG (live) ======
-    // New V2 Cloud Functions endpoint
     const FUNCTION_URL = "https://us-central1-crafting-better.cloudfunctions.net/createOrderV2";
-    // Set the webhook URL in Razorpay Dashboard (not used by frontend):
-    // https://us-central1-crafting-better.cloudfunctions.net/razorpayWebhookV2
     const RAZORPAY_KEY = "rzp_live_RDeYPruzKms6fI";
 
     const SHIPPING_THRESHOLD = 1000;
     const SHIPPING_FEE_BELOW = 70;
     const SHIPPING_FEE_ABOVE = 90;
 
-    // ----- PRODUCT DATA (Finalized List) -----
+    // ----- PRODUCT DATA -----
     const products = [
       { name: 'Pachranga Crochet Coaster', price: 100, image: 'https://lh3.googleusercontent.com/d/1v_xdcmhkZ-tNns-ysH2ABVbveJjKSd9F', description: 'A handcrafted crochet design echoing the colors of our pachranga flag – where heritage meets artistry' },
       { name: 'Mayo Utility Cross Stitch Pouch', price: 200, image: 'https://lh3.googleusercontent.com/d/15bQIui8_dYgvSbmNGkd-cJAFMe3HUz-V', description: 'Size 9.5 by 7.5 inches Reviving age-old art, one cross-stitch at a time' },
@@ -275,7 +273,7 @@
       { name: 'Mayo Heritage Diary', price: 4000, image: 'https://lh3.googleusercontent.com/d/1l8ykU3RN5pAGTaUzrRUt6pCqYsME3aqS', description: 'A beautifully handcrafted diary featuring the iconic hand-embroidered peacock, the proud symbol of Mayo College' }
     ];
 
-    // Exhibition data structure (Updated)
+    // Exhibition data
     const exhibitionData = {
         ajmer: {
             description: "We exhibited our products for the first time during the 150th Celebration Dinner of Mayo College on 30th August 2025 at Pratap Mahal, Pushkar.",
@@ -291,9 +289,9 @@
             ]
         },
         jaipur: {
-            description: "Our exhibited the full range at the 150th Celebration Dinner of Mayo College on 12th October 2025 at the Hotel Narain Niwas Palace, Jaipur.",
+            description: "We exhibited our full range at the 150th Celebration Dinner of Mayo College on 12th October 2025 at the Hotel Narain Niwas Palace, Jaipur.",
             images: [
-                "https://lh3.googleusercontent.com/d/1UBVvIo3XIuHhewfBPBcSxv0Nqs30eCBu",
+                "https://lh3.googleusercontent.com/d/1kY3805adywxnyLSoOvVZkzHBNKBKbwsE",
                 "https://lh3.googleusercontent.com/d/1gF0WS7Q8B4yhBBfcXBHlN_zYmPSt2obA",
                 "https://lh3.googleusercontent.com/d/1vNQEFhVMz1pjNBT_1lLfpMeieJ6A8UeN",
                 "https://lh3.googleusercontent.com/d/1P2hlIpoQsPfiHoGxU5B1XQvsAhjwuroh",
@@ -304,10 +302,12 @@
             ]
         },
         mayogirls: {
-            description: "Exhibition held at Mayo Girls Prize Giving. This was a special showcase focused on creative art and mental wellness for the students.",
+            description: "Exhibition held at Mayo Girls Prize Giving on 15th & 16th October 2025. This was a special showcase focused on creative art and mental wellness for the students.",
             images: [
-                "https://placehold.co/400x400/f39c12/000000?text=Mayo+PG+Image+A",
-                "https://placehold.co/400x400/f1c40f/000000?text=Mayo+PG+Image+B"
+                "https://drive.google.com/uc?id=1kY3805adywxnyLSoOvVZkzHBNKBKbwsE",
+                "https://lh3.googleusercontent.com/d/1Q882VNmIfY4wHgzopntexbYhahAo_waA",
+                "https://lh3.googleusercontent.com/d/1LoMvoZqilya9OnY0EWSzBAarDZY0Z5n_",
+                "https://lh3.googleusercontent.com/d/1QE36PNCnrzjWj_xQRYLVm59hrcgkh-4B"
             ]
         }
     };
@@ -333,7 +333,7 @@
     const paymentStatusMessage = document.getElementById('payment-status-message');
     const exhibitionContentDiv = document.getElementById('exhibition-content');
     const allSections = document.querySelectorAll('section[id]');
-    const mainContent = document.querySelector('main');
+    const mainContent = document.querySelector('main'); // ✅ FIX defined
 
     // ----- Cart Functions -----
     function addToCart(productName) {
@@ -466,7 +466,6 @@
       checkoutSection.style.display = 'none';
       checkoutSection.classList.add('hidden');
       
-      // FIX: Restore the display of the main content and all relevant sections
       mainContent.style.display = 'block';
       allSections.forEach(s => {
           if (s.id !== 'checkout-section' && s.id !== 'cart-modal' && s.id !== 'payment-status-modal') {
@@ -489,12 +488,11 @@
       updateCartDisplay();
     }
     
-    // ----- Exhibition Logic (New) -----
+    // ----- Exhibition Logic -----
     function loadExhibition(chapterKey, clickedButton) {
         const chapter = exhibitionData[chapterKey];
         if (!chapter) return;
 
-        // Update active tab styles
         document.querySelectorAll('#exhibition-tabs .tab-button').forEach(btn => {
             btn.classList.remove('active');
         });
@@ -502,14 +500,12 @@
             clickedButton.classList.add('active');
         }
 
-        // Generate image HTML
         const imageHtml = chapter.images.map(url => `
             <div class="aspect-square rounded-lg overflow-hidden shadow-lg">
                 <img src="${url}" alt="Exhibition Image" class="w-full h-full object-cover object-center">
             </div>
         `).join('');
 
-        // Update content
         exhibitionContentDiv.innerHTML = `
             <p class="text-gray-700 max-w-3xl mx-auto mb-8">${chapter.description}</p>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -519,7 +515,7 @@
     }
     window.loadExhibition = loadExhibition;
 
-    // ----- Make functions globally accessible -----
+    // ----- Expose functions -----
     window.addToCart = addToCart;
     window.updateQuantity = updateQuantity;
     window.removeFromCart = removeFromCart;
@@ -530,13 +526,12 @@
     window.hideCheckout = hideCheckout;
     window.closePaymentModal = closePaymentModal;
     
-    // ----- Product Rendering Function (Updated) -----
+    // ----- Product Rendering -----
     function renderProduct(product) {
       let imageContent;
       let hasSlider = product.secondaryImage;
       
       if (hasSlider) {
-        // Render a Swiper slider for products with a secondary image
         const sliderId = `swiper-${product.name.replace(/\s/g, '-')}`;
         imageContent = `
           <div class="swiper ${sliderId} rounded-xl shadow overflow-hidden w-full h-full">
@@ -550,7 +545,6 @@
           </div>
         `;
       } else {
-        // Render a single image
         imageContent = `<img src="${product.image}" alt="${product.name}" class="w-full h-auto object-cover rounded-xl mb-4 aspect-square" />`;
       }
 
@@ -575,13 +569,11 @@
     document.addEventListener('DOMContentLoaded', () => {
       updateCartDisplay();
       
-      // Load default exhibition chapter on page load
       loadExhibition('ajmer', document.querySelector('#exhibition-tabs .tab-button:first-child'));
 
-      // Render products using the new function
+      const productGrid = document.getElementById('product-grid');
       productGrid.innerHTML = products.map(renderProduct).join('');
 
-      // Initialize Swiper for the hero slider
       new Swiper('.hero-slider', {
         loop: true,
         autoplay: { delay: 3000, disableOnInteraction: false },
@@ -589,14 +581,12 @@
         navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
       });
 
-      // Initialize Swiper for any product sliders
       products.filter(p => p.secondaryImage).forEach(product => {
         const sliderClass = `.swiper-${product.name.replace(/\s/g, '-')}`;
         new Swiper(sliderClass, {
           loop: true,
           pagination: { el: `${sliderClass} .swiper-pagination`, clickable: true },
           navigation: { nextEl: `${sliderClass} .swiper-button-next`, prevEl: `${sliderClass} .swiper-button-prev` },
-          // Keep navigation buttons white on black background, adjusted from global style
           on: {
             init: function () {
               const container = this.el;
@@ -612,7 +602,6 @@
         });
       });
 
-      // Smooth scrolling logic
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
           e.preventDefault();
@@ -629,7 +618,6 @@
         });
       });
       
-      // Counter animation logic
       const counters = document.querySelectorAll('.counter');
       const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
