@@ -672,7 +672,6 @@
       const address = document.getElementById('address').value.trim();
       
       const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-      // SHIPPING LOGIC
       const shippingFee = subtotal < SHIPPING_THRESHOLD ? SHIPPING_FEE_BELOW : SHIPPING_FEE_ABOVE;
       const total = subtotal + shippingFee;
 
@@ -686,7 +685,6 @@
         payStatus.classList.remove('hidden');
 
         const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-        // SHIPPING LOGIC
         const shippingFee = subtotal < SHIPPING_THRESHOLD ? SHIPPING_FEE_BELOW : SHIPPING_FEE_ABOVE;
         const total = subtotal + shippingFee;
 
